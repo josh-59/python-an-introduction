@@ -1,0 +1,73 @@
+Spring 1969:        AT&T withdrew from MULTICS
+
+(Sometime) 1969:    Ancient UNIX filesystem on PDP-7
+August 1969:        Thompson's three weeks of coding
+
+(Sometime) 1970:    Moved to PDP-11
+(Sometime) 1970:    Second PDP-11
+
+November 3, 1971:   First Edition Released
+                    Included
+                        cat
+                        cp
+                        sort
+                        grep
+                        su
+                        chown
+                        chmod
+
+
+June 12, 1972:      Second Edition Released
+                    Included:
+                        echo
+                    *10 installations 
+                    
+            
+February 1973:      Third Edition Released 
+                    Included:
+                        pipes
+                    *16 Installations
+
+October 1973:       Dennis Ritchie and Ken Thompson deliver
+                    first paper on UNIX;
+
+November 1973:      Fourth Edition Released: 
+                    Included:
+                        grep
+                        printf
+                    *Rewritten in C
+                    *First to be released outside of 
+                    Bell Labs; to academic and
+                    research institutions
+
+June 1974           Fifth Edition Released:
+                        dd
+                        wc
+                        cat
+                        uniq
+                    *More than 50 installations 
+
+May 1975:           Sixth Edition Released
+                    *First to be available to commercial and 
+                    government institutions
+
+January 1979:       Seventh Edition Released 
+                    Included:?
+                        sh, the Bourne Shell
+                    *Portable
+                    *"Proliferation of includes files"
+
+February 1985       Eighth Edition Released
+
+September 1986      Ninth Edition Released
+
+October 1989        Tenth Edition Released
+
+Note: The numbers of these releases correspond to the edition of 
+the manual
+
+Sources:
+http://www.groklaw.net/article.php?story=20050502114023686
+https://www.cs.dartmouth.edu/~doug/reader.pdf
+(The Unix Programmer's Manual, 2nd Edition): "10 Installations"
+(The Unix Programmer's Manual, 5th Edition): "More than 50 installations

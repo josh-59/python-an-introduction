@@ -1,0 +1,13 @@
+<div id="pro-tip" style="background-color: #f1f1f1;">
+    <br>
+    This protip comes from <br>
+    <a href="https://fedoramagazine.org/fish-a-friendly-interactive-shell/"> an article in Fedora Magazine</a>: <br>
+    Alias the often-used
+    <div class="code" style="text-align: center; padding-left: 0">
+        ls -lAhF
+    </div>
+    to the much faster
+    <div class="code" style="text-align: center; padding-left: 0">
+        ll
+    </div>
+</div>

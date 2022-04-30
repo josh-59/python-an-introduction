@@ -1,0 +1,895 @@
+---
+layout: default
+title: Introduction to GNU/Linux
+last-updated: March, 2022
+---
+
+<!--
+
+    <p>
+        As an organization, Mint has modelled itself after community-supported
+        radio stations: They collect funds from ad revenue and from donations.
+    </p>
+-->
+
+
+<div id="nav_bar_2" class="nav">
+    <ul>
+        <li><a href="#introduction"> Introduction </a></li>
+        <li><a href="#history"> History: Time Sharing </a></li>
+        <li><a href="#unix">Unix</a></li>
+        <li><a href="#unix-architecture"> The UNIX Architecture </a></li>
+        <li><a href="#gnu">GNU's Not Unix</a></li>
+        <li><a href="#linux"> The Linux Kernel </a></li>
+        <li><a href="#distributions"> Linux Distributions: Early History</a></li>
+        <li><a href="#mint"> Linux Mint </a></li>
+        <li><a href="#greg-kroah-hartman">Greg Kroah-Hartman </a></li>
+        <li><a href="#references"> References </a></li>
+    </ul>
+</div>
+
+<div id="introduction" class="content">
+    <h1>Introduction to GNU/Linux</h1>
+
+
+    <div class="quote-text">
+        "Those who do not understand UNIX<br>
+        are condemned to reinvent it, poorly."
+    </div>
+
+    <div class="quote-ref">
+        Henry Spence, Programmer
+    </div>
+
+    <p>
+        An operating system is a piece of software which facilitates
+        the use of a computer.
+        To this end, its two main responsibilities are to support running
+        programs and to maintain persistent data.
+        GNU/Linux belongs to a large class of operating systems known as
+        <em>UNIX-like</em>, having an architecture, design philosophy, and
+        system-call interface similar to the 
+        70's-era operating system.
+    </p>
+</div>
+
+
+
+<div class="content" id="history">
+    <h2 style="margin-bottom: 0;">History:</h2>
+    <h4>Time Sharing</h4>
+
+    <p>
+        To understand Unix and the origins of GNU/Linux, we have
+        to step back in time, to the 1960's, when the computer industry
+        was just beginning.
+        Computers then were immense&mdash;
+        and largely uncontrolled&mdash; machines, either
+        processing instructions from punched cards in
+        discrete sessions called <em><a href="https://en.wikipedia.org/wiki/Batch_processing">batches</a>,</em>
+        or supporting some lucky user for an interactive session.<sup><a href="https://multicians.org/project-mac.html">[1]</a></sup>
+    </p>
+
+    <p>
+        Next-generation computers were interactive,
+        their use being, "...indescribably more pleasant and productive 
+        than batch processing."<sup><a href="#references" title="Kernighan p. 31">[2]</a></sup>
+        In 1960, an operating system was devised to "steal" time 
+        from batch jobs on behalf of interactive users, and thereby
+        support both interactive and batch computing simultaneously.<sup><a href="https://multicians.org/project-mac.html">[1]</a></sup>
+        In 1961, a purely time-sharing operating system&mdash;
+        which could support four users simultaneously&mdash;
+        was demonstrated.<sup><a href="https://multicians.org/project-mac.html">[1]</a></sup>
+    </p>
+
+    <p>
+        Computing's commercial future was widely believed
+        to be in offering an <em><a href="https://en.wikipedia.org/wiki/Utility_computing">information utility</a>:</em>
+        In a business model similar to telephone or electricity,
+        customers would connect their keyboards and monitors to a 
+        central mainframe, then pay for computation on an as-used 
+        basis.<sup><a href="http://www.tnellen.com/cybereng/ebooks/greenbf.htm">[3]</a></sup>
+        Such "dial-up timesharing" presented a number of technical challenges,
+        chief among them,
+    </p>
+
+    <ol>
+        <li>Creating the necessary infrastructure to distribute the service</li>
+        <li>The procurement of capable computer hardware</li>
+        <li>Allotting useful and controlled computation to individual customers</li>
+    </ol>
+
+    <p>
+        AT&amp;T, which dominated the country's telephone system,
+        was uniquely positioned to address the first; 
+        General Electric was willing to produce the necessary hardware;
+        and,
+        MULTICS, an operating system project that began in 1965, 
+        intended to solve the third.
+    </p>
+
+    <h3>Multics</h3>
+
+    <p>
+        The MULTICS project was born at MIT, and its development was 
+        supplemented by GE and AT&amp;T.<sup><a href="https://multicians.org/history.html">[4]</a></sup>
+        To address the challenges at hand, a number of 
+        <a href="https://multicians.org/features.html">novel features</a> 
+        were introduced, many of which
+        would become standard in computing.
+    </p>
+
+    <div class="img-center">
+        <a href="http://bitsavers.org/pdf/ge/GE-645/LSB0468_GE-645_System_Manual_Jan1968.pdf" title="Photo credit: General Electric Information Systems Equipment Division, 1968">
+            <img src="assets/img/GE-645.png">
+        </a>
+        <center>The Envisioned Hardware<center>
+    </div>
+
+    <p>
+        To support the controlled execution of customers' software, 
+        for example,
+        it relied on the <em>process,</em> a virtualised environment
+        within which software could safely be 
+        executed.<sup><a href="https://multicians.org/exec-env.html">[5]</a></sup>  
+        To support multiple users, multiple processes
+        were supported simultaneously.<sup><a href="https://multicians.org/exec-env.html">[6]</a></sup>
+        To manage these, a "supervisor" program was introduced.
+    </p>
+
+    <p>
+        To implement these ideas, Multics was 
+        written in a high-level programming language, <em>PL/I.</em><sup><a href="https://multicians.org/features.html">[6]</a><a href="https://multicians.org/pl1.html">[7]</a></sup>
+        Even by today's standards, PL/I was sophisticated:
+        In order to future-proof the work, it was entirely
+        platform-independent&mdash; it did not deal in what we would call 
+        "primitives."<sup><a href="https://multicians.org/fjcc1.html">[8]</a></sup>
+        As the project got underway, obtaining a compiler for
+        it became a significant challenge, so much so that a lesser 
+        dialect was first devised and implemented.<sup><a href="https://multicians.org/pl1.html">[7]</a></sup>
+    </p>
+
+    <p>
+        Although Multics was working by 1968, 
+        it could only support a small team of developers,
+        and as it became increasingly clear that the project would 
+        not deliver on its promise of supporting a
+        profitable information utility,
+        AT&amp;T withdrew.<sup><a href="#references" title="Kernighan p 32">[2]</a></sup>
+        Multics soldiered on:
+        1970 saw its first installation, which could support 
+        35 simultaneous users. 
+        One of its later installations (General Motors) could support 
+        200.<sup><a href="http://web.mit.edu/Saltzer/www/multics.html">[9]</a></sup>
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://multicians.org/fjcc3.html">The Structure of the Multics Supervisor</a> by V. A. Vyssotsky, F. J. Corbató, and R. M. Graham </li>
+    </ul>
+</div>
+
+<div id="unix" class="content">
+    <h2>Unix</h2>
+
+    <div class="aside-left">
+        <h4>Aside:</h4>
+        <p>
+            Bell Laboratories was AT&amp;T's research arm. 
+        </p>
+    </div>
+
+
+    <p>
+        In the wake of AT&amp;T's withdrawal from Multics, 
+        operating systems researchers working at Bell Labs
+        found themselves without a clear project.<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+        Still reeling from the disaster of Multics, management
+        refused to purchase any new computer equipment.
+        For the researchers of Bell Labs, this period was 
+        frustrating: Their proposals,
+        "...were never clearly and finally turned down, but yet were certainly never accepted."<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+    </p>
+
+    <p>
+        After finding a disused <a href="https://www.soemtron.org/pdp7.html">PDP-7</a>,
+        Ken Thompson and Dennis Ritchie decided to rewrite
+        <em><a href="https://en.wikipedia.org/wiki/Space_Travel_(video_game)">Space Travel</a></em> 
+        for it.<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+        Afterwards, Ken Thompson continued to work with the machine, 
+        implementing a filesystem that he, Dennis Ritchie and 
+        Rudd Canaday had devised on
+        paper.<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+    </p>
+
+    <p>
+        In mid-1969, Thompson realized that he was close to
+        an operating system:  All he needed was an
+        assembler, a text editor, a shell and a system call to
+        launch programs.<sup><a href="#references" title="Kernighan, p34">[2]</a><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+        The system call was "trivial", and the other three 
+        components were done in one week 
+        each.<sup><a href="#references" title="Kernighan, p34">[2]</a></sup>
+    </p>
+
+    <p>
+        By late 1969, the software was self-supporting, and 
+        was quickly developed into a multi-user, time-sharing operating
+        system, called <em>Unix.</em>
+        Whereas Multics required specialized mainframe
+        hardware, Unix made use of an emerging line of minicomputers.
+        Whereas Multics was large, and offered many ways to
+        handle a given task, Unix was simple, and usually offered one.
+    </p>
+    <p>
+        About his colleague's early work, Dennis Ritchie would later write,
+    </p>
+
+    <blockquote>
+        "Thompson wanted to create a comfortable computing environment
+        constructed according to his own design, using whatever means were
+        available. His plans, it is evident in retrospect, incorporated many
+        of the innovative aspects of Multics, including an explicit notion of
+        a process as a locus of control, a tree-structured file system, a
+        command interpreter as user-level program, simple representation of
+        text files, and generalized access to devices."<sup><a href="https://www.bell-labs.com/usr/dmr/www/chist.html">[11]</a></sup>
+    </blockquote>
+
+    <p>
+        By offering text processing services for the
+        purposes of patent applications within the laboratory,
+        the team acquired a new PDP-11.<sup><a href="#references" title="Kernighan">[2]</a></sup>
+        They supported a sequence of versions of the software and
+        an accompanying online manual, while they themselves worked on 
+        "Research Unix."<sup><a href="#references" title="Kernighan">[2]</a></sup> 
+        By 1974, there were over fifty
+        installations, with "...many more expected."<sup><a href="https://www.tuhs.org/Archive/Distributions/Research/Dennis_v5/v5man.pdf">[12]</a></sup>
+        The first fork, <em>BSD,</em> was produced at the
+        University of California, Berkeley, in 1977.<sup><a href="https://forums.freebsd.org/threads/history-of-freebsd-part-1-unix-and-bsd.77407/">[13]</a></sup>
+    </p>
+
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Ken_Thompson">Ken Thompson</a> - Wikipedia</li>
+        <li><a href="https://www.cs.princeton.edu/~bwk/">UNIX: A History and Memoir</a> by Brian Kernighan</a></li>
+    </ul>
+</div>
+
+<div id="unix-architecture" class="content">
+    <h2>The Unix Architecture</h2>
+    <p>
+        Unix had a simple, clear, well-documented architecture that
+        inspired <a href="https://en.wikipedia.org/wiki/Category:Unix_variants">many</a> operating systems.
+        It is organized as a hierarchy of layers,
+        with each layer building upon the ones beneath it, and supporting
+        those above it:
+    </p>
+
+    <img src="assets/img/linux-architecture.png" style="height: 400px;">
+
+    <p>
+        <strong>Hardware:</strong>
+        The core of any computer is its hardware.
+        Each piece of hardware has a software interface defined by the
+        engineers that created it; these interfaces are varied at best.
+    </p>
+
+    <p>
+        <strong>Drivers:</strong>
+        Drivers interact with hardware, and simplify its 
+        interface for the kernel.
+        Drivers are the deepest and most remote elements
+        of operating systems, and are constantly being introduced
+        as new hardware becomes available.
+    </p>
+
+    <p>
+        <strong>Kernel:</strong>
+        The heart of the Unix operating system is its 
+        <a href="http://linffo.org/kernel.html">kernel</a>.
+        The kernel is responsible for
+        scheduling the CPU, allotting memory, 
+        maintaining file integrity, and many other tasks.
+        It is an involved piece of software&mdash;
+        effectively, the "brains" of the operation.
+    </p>
+
+    <p>
+        <strong>System Calls:</strong>
+        The set of operations that an operating system is willing 
+        to undertake is defined by the system calls it supports.
+        The Unix architecture is characterized by six essential system 
+        calls:<sup><a href="#references">[14]</a></sup>
+        <em>fork()</em>, <em>exec()</em>, <em>open()</em>, 
+        <em>close()</em>, <em>read()</em>, and
+        <em>write()</em>.
+        Both <em>fork()</em> and <em>exec()</em> are concerned with 
+        launching programs, while the other four deal with files. 
+    </p>
+
+    <p>
+        <strong>Processes:</strong>
+        A <em>process</em> is an executing program.
+        Within the Unix family of operating systems, 
+        processes run the show:
+        The kernel depends entirely on processes to tell it 
+        what to do, and takes no action without explicit instruction by a process.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="http://www.linfo.org/kernel.html">Kernel Definition</a> by The Linux Information Project (LINFO)</a></li>
+    </ul>
+</div>
+
+<div class="content" id="gnu">
+    <h2>GNU's Not Unix</h2>
+
+    <div class="img-right">
+        <a title="Ruben Rodriguez, CC BY 4.0 &lt;https://creativecommons.org/licenses/by/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Richard_Stallman_at_LibrePlanet_2019.jpg"><img width="256" alt="Richard Stallman at LibrePlanet 2019" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg/512px-Richard_Stallman_at_LibrePlanet_2019.jpg"></a>
+        <center>Richard Stallman</center>
+    </div>
+
+    <p>
+        The first attempt at producing a deliberately free and open-source Unix clone was
+        <a href="https://www.gnu.org/gnu/initial-announcement.en.html#f1">announced</a> 
+        by Richard Stallman in 1983.
+        Stallman had been working at MIT's AI Laboratory for over a decade,
+        and had grown accustomed to its culture of sharing source code:
+    </p>
+
+    <blockquote style="width: 55%;">
+        "If you saw someone using an unfamiliar and interesting program, you
+        could always ask to see the source code, so that you could read it, change
+        it, or cannibalize parts of it to make a new
+        program."<sup><a href="https://www.gnu.org/gnu/thegnuproject.html">[15]</a></sup>
+    </blockquote>
+
+    <p>
+        Yet, proprietary software was becoming the norm, with students working
+        on projects intended for profit,
+        and companies going so far as to require nondisclosure agreements be 
+        signed to get an executable.<sup><a href="https://www.gnu.org/gnu/thegnuproject.html">[15]</a></sup><sup><a href="https://www.gnu.org/gnu/why-programs-should-be-shared.html">[16]</a></sup>
+        On September 27, 1983, Stallman made his announcement:
+        To produce a "complete UNIX-compatible software system," and to
+        "give it away free."<a href="https://www.gnu.org/gnu/initial-announcement.en.html#f1"><sup>[17]</sup></a>
+        He called the project <a href="https://gnu.org">GNU</a>, a recursive
+        acronym for
+        <em>GNU's Not UNIX.</em><sup><a href="https://www.gnu.org/gnu/gnu-history.html">[18]</a></sup>
+    </p>
+
+    <h3>Software Freedom</h3>
+   
+    <p>
+        At the time of announcement, Stallman had not yet quantified his
+        own intentions behind the word <em>free.</em>
+        Certainly, "a free copy" did not embody the
+        culture of code-sharing MIT was once home to.
+        More, he did not wish to put the code in the public domain because
+        modified versions of it it could become proprietary.<sup><a href="https://en.wikipedia.org/wiki/Copyleft#History">[19]</a></sup>
+        By 1985, Stallman had sorted these issues out:
+    </p>
+
+    <blockquote>
+        Everyone will be permitted to
+        modify and redistribute GNU, but no distributor will be allowed to
+        restrict its further redistribution. That is to say, proprietary
+        modifications will not be allowed. I want to make sure that all
+        versions of GNU remain free.<sup><a href="https://www.gnu.org/gnu/manifesto.html">[20]</a></sup>
+    </blockquote>
+
+    <p>
+        Thus, the notion of 
+        <em><a href="https://www.gnu.org/philosophy/free-sw.en.html">free software</a></em>
+        was born: 
+        Users can run, study, modify, copy and distribute GNU,
+        but <em>if</em> they distribute, then those freedoms must be preserved.
+        These stipulations are formalized in the GNU
+        <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">General Public License</a>, now in its third version.
+    </p>
+
+    <p>
+        To create an entire operating system is an enormous task, but
+        by 1990, the GNU Project had
+        found or written all major components except one, the kernel.<sup><a href="https://www.gnu.org/gnu/gnu-history.html">[18]</a></sup>
+        Today, the <a href="https://www.gnu.org/">GNU Project</a> is 
+        well-regarded for producing high-quality, well-documented free software;
+        they are as "official" as the open-source community gets.
+        They remain
+        <a href="https://www.gnu.org/keepingup.html">active and prominent</a>
+        among the free software community, with
+        monetary support from the 
+        <a href="https://www.fsf.org">Free Software Foundation</a>.<sup><a href="https://www.gnu.org/gnu/gnu-structure.html">[22]</a></sup>
+        Richard Stallman remains Chief GNUisance.<sup><a href="https://www.gnu.org/gnu/gnu-structure.html">[22]</a></sup>
+    </p>
+
+    <h3> See Also: </h3>
+    <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Portal:Free_and_open-source_software">Portal: Free and open-source software</a> - Wikipedia</li>
+    </ul>
+</div>
+
+<div class="content" id="linux">
+    <h2>The Linux Kernel </h2>
+
+    <p>
+        On August 25, 1991, a Finnish graduate student by the name of 
+        Linus Torvalds announced his own operating system project.
+        Again following the Unix architecture,
+        his project was intended to be "...just a hobby, won't be big and
+        professional like GNU."<sup><a href="https://www.cs.cmu.edu/~awb/linux.history.html">[23]</a></sup>
+    </p>
+
+    <p>
+        Whereas GNU sought to produce an entire operating system, 
+        Linus restricted his attention to the kernel.
+        By October of 1991, GNU's Bash, GCC, Make and other
+        programs were running on his creation.<sup><a href="https://www.cs.cmu.edu/~awb/linux.history.html">[23]</a></sup>
+        That month, he sent out the following invitation, 
+        which has since become famous:
+    </p>
+
+    <div class="aside-right" style="font-size: 11pt;">
+        <h4>Aside:</h4>
+        <p>
+            Properly speaking, the name <em>Linux</em> refers only to the Linux kernel.
+        </p>
+    </div>
+
+
+    <blockquote>
+        From: torvalds@klaava.Helsinki.FI (Linus Benedict Torvalds)<br>
+        Newsgroups: comp.os.minix<br>
+        Subject: Free minix-like kernel sources for 386-AT<br>
+        Message-ID:<br>
+        Date: 5 Oct 91 05:41:06 GMT<br>
+        Organization: University of Helsinki<br>
+    </blockquote>
+
+    <blockquote>
+        Do you pine for the nice days of minix-1.1, when men were men and wrote
+        their own device drivers? Are you without a nice project and just dying
+        to cut your teeth on a OS you can try to modify for your needs? Are you
+        finding it frustrating when everything works on minix? No more all-
+        nighters to get a nifty program working? Then this post might be just
+        for you :-)
+    </blockquote>
+
+    <blockquote>
+        As I mentioned a month(?) ago, I'm working on a free version of a
+        minix-lookalike for AT-386 computers.  It has finally reached the stage
+        where it's even usable (though may not be depending on what you want),
+        and I am willing to put out the sources for wider distribution.
+    </blockquote>
+
+    <blockquote>
+        [...]<sup><a href="https://www.cs.cmu.edu/~awb/linux.history.html">[23]</a></sup> 
+    </blockquote>
+
+    <div class="aside-left">
+        <h4>Aside:</h4>
+        <p>
+            In view of the "Bazaar" model's overwhelming dominance in
+            modern open-source, Eric Raymond's paper is, in this
+            author's opinion at least, no longer relevant.
+        </p>
+    </div>
+
+    <p>
+        Interest flourished, in large part because
+        of the informality of the project:
+        Everybody was invited, if only to tinker.
+        His development model&mdash; "release early and often, delegate everything you can,
+        be open to the point of promiscuity"<sup><a href="http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html#catbmain">[24]</a></sup>&mdash; <a href="http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html#catbmain">raised eyebrows</a> at the time,
+        but has proved sound in virtue of its success:
+        It now dominates the open-source landscape, with most projects following
+        this, rather than the older "Cathedral" model.
+    </p>
+
+    <div class="img-right">
+        <figure>
+        <a title="https://github.com/icons8/flat-color-icons/graphs/contributors / MIT (http://opensource.org/licenses/mit-license.php)" href="https://commons.wikimedia.org/wiki/File:Icons8_flat_linux.svg"><img width="128" alt="Icons8 flat linux" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Icons8_flat_linux.svg/256px-Icons8_flat_linux.svg.png"></a>
+        <figcaption><center><a href="https://en.wikipedia.org/wiki/Tux_%28mascot%29">Tux</a>, the Linux Mascot</center></figcaption>
+    </div>
+
+
+    <p>
+        The kernel is released under the GNU General Public License, and 
+        Linus Torvalds remains the maintainer of the Development branch.
+        He often remarks on the kernel's latest releases.
+        A major figure of today's Linux development effort is 
+        Greg Kroah-Hartman, who is
+        lead maintainer of the stable branch, in addition to various subsystems.<sup><a href="https://en.wikipedia.org/wiki/Greg_Kroah-Hartman">[25]</a></sup>
+        According to him, interest in the kernel continues to
+        grow, with 1200 new developers contributing each
+        year.<sup><a href="https://www.theregister.com/2020/10/26/linux_kernel_intel/">[26]</a></sup>
+        Their main development bottlenecks are code review and
+        maintainership.<sup><a href="https://www.theregister.com/2020/10/26/linux_kernel_intel/">[26]</a></sup>
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://kernel.org">Kernel.org</a> - The Linux Kernel Archives</li>
+        <li><a href="https://lwn.net/">LWN.net</a> - News from the Source</li>
+    </ul>
+</div>
+
+<div id="distributions" class="content">
+    <h2 style="margin-bottom: 0;">Linux Distributions:</h2>
+    <h4> Early History </h4>
+
+    <p>
+        The Linux kernel is made available by its developers in source-code
+        form, and requires compilation on a separate host machine
+        before it can be used.  
+        In addition, no other software is included, so that
+        creating a functional Linux-based machine requires somebody
+        to obtain, compile and assemble a 
+        number of disparate software components.
+        A <em>distribution</em> is a project or community that 
+        fills this gap.
+    </p>
+        
+
+    <div class="img-right">
+        <a title="Shermozle at English Wikipedia, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Linux_0_12.jpg"><img width="256" alt="Linux 0 12" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Linux_0_12.jpg/512px-Linux_0_12.jpg"></a>
+        <center style="font-size: 12pt;">HJ Lu's Boot/Root Floppies</center>
+    </div>
+
+    <p>
+        The very first distribution of GNU/Linux was undertaken by 
+        <a href="https://en.wikipedia.org/wiki/HJ_Lu">HJ Lu</a>
+        in 1992.<sup><a href="https://www.maketecheasier.com/history-of-early-linux-distros/">[27]</a></sup>
+        He packaged utilities alongside the kernel and distributed the
+        collection on a pair of 5.25" disks.
+        Known as the <em>Boot/Root Floppies,</em>
+        it was never widely known.<sup><a href="https://www.maketecheasier.com/history-of-early-linux-distros/">[27]</a></sup><sup><a href="https://lwn.net/Articles/91371/">[28]</a></sup>
+    </p>
+
+    <p>
+        Linux's first widely used distribution was, ironically,
+        a commercial venture, <em><a href="https://en.wikipedia.org/wiki/Softlanding_Linux_System">Soft Landing System</a>.</em> 
+        Released in late 1992, it was sold under the slogan 
+        "Gentle Touchdowns for DOS Bailouts,"<sup><a href="https://en.wikipedia.org/wiki/Softlanding_Linux_System">[29]</a></sup>
+        but users complained that the software was buggy,<sup><a href="https://en.wikipedia.org/wiki/Softlanding_Linux_System">[28]</a><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup> and when its developers
+        decided to change the executable file format, began to leave.<sup><a href="https://lwn.net/Articles/91371/">[28]</a></sup>
+    </p>
+
+    <h3> Slackware </h3>
+
+    <p>
+        In late 1992, Patrick Volkerding needed a LISP interpreter for a project
+        at school, and, having heard that <code>clisp</code> ran on SLS Linux,
+        downloaded them both.<sup><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup>
+        His professor got wind, and asked Patrick to help him install the 
+        same software
+        on school computers.<sup><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup>
+        Volkerding walked him through installing, fixing and patching SLS, and
+        afterward, his professor asked, "Is there some way we can fix the install disks so
+        that the new machines will have these fixes right away?"<sup><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup>
+    </p>
+
+    <p>
+        So Volkerding began improving SLS, and internally named his project
+        <em>Slackware,</em> not wishing it to be taken too 
+        seriously.<sup><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup>
+        By May 1993, though, the improvements were, "more than just cosmetic," and 
+        his friends convinced him to release it onto the internet.
+        The first release proved so popular that the
+        number of download requests crashed the system hosting it,<sup><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup>
+        and Slackware would be, for several years, the de-facto Linux distribution.
+    </p>
+
+    <div class="img-center">
+
+    <a title="Patrick Volkerding
+    Screenshot:
+
+    Seth Kenlon/Opensource.com, GPL &lt;http://www.gnu.org/licenses/gpl.html&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Slackware_1.01_screenshot.png"><img width="1024" alt="Slackware 1.01 screenshot" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Slackware_1.01_screenshot.png"></a>
+    <center>Slackware 1.01, released 1993</center>
+    </div>
+
+    <p>
+        Volkerding hadn't intended to produce a distribution,<sup><a href="https://www.linuxjournal.com/article/2750">[30]</a></sup> but still
+        maintains <a href="http://www.slackware.com/">Slackware</a> today.<sup><a href="http://www.slackware.com/about">[31]</a></sup>
+        The Slackware Linux Project is focused on producing "the most UNIX-like
+        Linux distribution out there."<sup><a href="http://www.slackware.com/info/">[32]</a></sup>
+    </p>
+
+    <h3>Debian</h3>
+
+    <p>
+        At about the same time, Ian Murdoch was an undergraduate at 
+        Purdue University.<sup><a href="https://en.wikipedia.org/wiki/Ian_Murdock">[33]</a></sup>
+        He saw distributions as essential to the future of Linux, but was
+        dismayed by their quality.<sup><a href="https://www.debian.org/doc/manuals/project-history/manifesto.en.html">[34]</a></sup>
+        The single-person and closed-room Cathedrals had consistently
+        failed to produce quality products.
+        More, the most popular distribution&ndash; SLS Linux&ndash; was,
+        "...quite possibly the most bug-ridden and badly maintained Linux distribution available."<sup><a href="https://www.debian.org/doc/manuals/project-history/manifesto.en.html">[34]</a></sup>
+    </p>
+
+    <p>
+        Murdoch envisioned a distribution whose maintenance was
+        community-driven&mdash; A modular operating system whose 
+        components were maintained by people with appropriate desires and 
+        specialities.
+        He named the project 
+        <em><a href="https://www.debian.org">Debian</a>,</em>
+        a portmanteau of <em>Ian</em> and <em>Debra,</em> his wife:
+    </p>
+
+    <blockquote>
+        "Debian Linux is a brand-new kind of Linux distribution. 
+        Rather than being developed by one isolated individual or group, 
+        as other distributions of Linux have been developed in the 
+        past, Debian is being developed openly in the spirit of Linux and GNU. 
+        The primary purpose of the Debian project is to finally create a 
+        distribution that lives up to the Linux name. 
+        Debian is being carefully and conscientiously put together and will be 
+        maintained and supported with similar care."<sup><a href="https://www.debian.org/doc/manuals/project-history/manifesto.en.html">[34]</a></sup>
+    </blockquote>
+
+    <div class="img-center">
+        <a title="The Debian Project (GPL &lt;http://www.gnu.org/licenses/gpl.html&gt; or Copyrighted free use), via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Debian_Etch-ja.png"><img width="1024" alt="Debian Etch-ja" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Debian_Etch-ja.png/1024px-Debian_Etch-ja.png"></a>
+        <center>Debian 4 "Etch", released 2007</center>
+    </div>
+
+    <p>
+        Debian is one of the most respected distributions of our time.
+        The quantity of software available through its repositories is 
+        unparalleled, and 
+        it is often used as a basis for derivate distributions.
+    </p>
+ 
+    <h3> See Also: </h3>
+    <ul>
+        <li><a href="https://www.debian.org/intro/philosophy">Debian -- Our philosophy, why we do it and how we do it</a></li>
+        <li><a href="https://www.linuxjournal.com/article/2841">Overview of the Debian GNU/Linux System</a> by Ian Murdock</li>
+        <li><a href="https://www.slackbook.org/html/introduction-slackware.html">What is Slackware?</a> - Slackbook</li>
+    </ul>
+</div>
+
+<div id="mint" class="content">
+    <h2> Linux Mint </h2>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Mint is one of several Debian derivatives.
+        </p>
+    </div>
+
+
+    <p>
+        My favorite distribution is 
+        <a href="https://linuxmint.com/">Linux Mint</a>, but then,
+        I'm a simple guy.
+        Mint is a characteristically professional operating system,
+        and focuses on productivity&mdash; That means you'll be up and
+        running before you know it.
+    </p>
+
+    <div class="img-center">
+        <a title="Zoodino, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Linux_Mint_20.1_%22Ulyssa%22_Cinnamon.png"><img width="1024" alt="Linux Mint 20.1 &quot;Ulyssa&quot; Cinnamon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Linux_Mint_20.1_%22Ulyssa%22_Cinnamon.png/1024px-Linux_Mint_20.1_%22Ulyssa%22_Cinnamon.png"></a>
+        <center>Linux Mint 20.1 "Ulyssa", Cinnamon Edition, Released 2021</center>
+    </div>
+
+    <p>
+        Mint is available with the above Cinnamon desktop environment;
+        Windows users will feel right at home.
+        I find it to be an attractive desktop, but it's only moderately
+        customizable.
+        Like many users, I want a desktop that stays out of my way,
+        and Cinnamon does exactly that.
+    </p>
+
+    <p>
+        With version 19, Mint began shipping with 
+        <em><a href="https://github.com/linuxmint/timeshift">Timeshift</a>,</em> 
+        a tool that automaticaly takes snapshots of the filesystem,
+        so that users can restore the system to some earlier date.<sup><a href="https://www.linuxmint.com/rel_tara_cinnamon_whatsnew.php">[35]</a></sup>
+        Version 20 offers automatic updates.<sup><a href="https://blog.linuxmint.com/?p=4049">[36]</a></sup>
+    </p>
+
+    <p>
+        What sets Linux Mint apart from other distributions is that tools like 
+        <em>Timeshift</em> and <em>Cinnamon</em> are preinstalled and ready to use.
+        When an example operating system is required, 
+        Mint will be used, but similar remarks apply to 
+        virtually any distribution, with a little perusing.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.balena.io/etcher/"> balenaEtcher</a> - Flash OS images to SD cards &amp; USB drives </li>
+        <li><a href="http://web.archive.org/web/20150409023855/http://www.techworld.com.au/article/529572/q_clement_lefebvre_man_behind_linux_mint/">Q&amp;A: Clement Lefebvre: The man behind Linux Mint</a></li>
+    </ul>
+</div>
+
+<div id="greg-kroah-hartman" class="content">
+    <h2 style="margin-bottom: 2pt;"> Greg Kroah-Hartman </h2>
+    <h4 style="margin-bottom: 18pt;"> Linux Kernel Development </h4>
+    <iframe class="video" src="https://www.youtube.com/embed/vyenmLqJQjs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div id="references" class="content">
+    <h2> References </h2>
+    <ol style="margin-left: 0">
+        <li>
+            Vleck, T. V. (2014, August 14). <em>Project MAC.</em> <a href="https://multicians.org/project-mac.html">https://multicians.org/project-mac.html</a>.
+        </li>
+
+        <li>
+            Kernighan, Brian. <i>UNIX: A History and a Memoir.</i>  Published 2020, by Brian W. Kernighan via Kindle Direct Publishing.
+        </li>
+
+        <li>
+            Greenberger, M. (1964, May). The Computers of Tomorrow. Available at <a href="http://www.tnellen.com/cybereng/ebooks/greenbf.htm">http://www.tnellen.com/cybereng/ebooks/greenbf.htm</a>.
+
+        <li>
+            Multics History. (2020, September 20). Retrieved May 25, 2021, from <a href="https://multicians.org/history.html">https://multicians.org/history.html</a>
+        </li>
+
+        <li>
+            Ata, J., et al.. <em>Multics Execution Environment.</em> Retrieved May 25, 2021, from
+            <a href="https://multicians.org/exec-env.html">https://multicians.org/exec-env.html</a>.
+        </li>
+
+        <li>
+            Multics Features. (n.d.). <a href="https://multicians.org/features.html">https://multicians.org/features.html</a>.
+        </li>
+
+
+        <li>
+            Doug, M. I., &amp; Van, V. (2021, May 23). Multics PL/I. <a href="https://multicians.org/pl1.html">https://multicians.org/pl1.html</a>.
+        </li>
+
+        <li>
+            Corgato, F. J., &amp; Vyssotsky, V. A. (1965). Introduction and Overview of the Multics System. Fall Joint Computer Conference. Available at <a href="https://multicians.org/fjcc1.html">https://multicians.org/fjcc1.html</a>.
+        </li>
+
+        <li>
+            Saltzer, J. (2004, January). Multics photo and specifications. <a href="http://web.mit.edu/Saltzer/www/multics.html">http://web.mit.edu/Saltzer/www/multics.html</a>.
+        </li>
+
+        <!-- 
+            END History
+
+            BEGIN Unix
+        -->
+
+        <li>
+            Ritchie, D. M. (1984). <a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">The Evolution of the UNIX Time-sharing System</a>. <em>AT&amp;T Bell Laboratories Technical Journal,</em> 63(6), 2nd ser., 1577-1593.
+        </li>
+
+        <li>
+            Ritchie, D. M. (1973). The Development of the C Language*. Chistory. <a href="https://www.bell-labs.com/usr/dmr/www/chist.html">https://www.bell-labs.com/usr/dmr/www/chist.html</a>.
+        </li>
+
+        <li>
+            Thompson, K., &amp; Ritchie, D. (1974, June). Unix Programmer's Manual: 5th Edition. v5man.pdf. <a href="https://www.tuhs.org/Archive/Distributions/Research/Dennis_v5/v5man.pdf">https://www.tuhs.org/Archive/Distributions/Research/Dennis_v5/v5man.pdf</a>.
+        </li>
+
+        <li>
+            Admin. (2020, October 21). History of FreeBSD – Part 1: Unix and BSD. The FreeBSD Forums. <a href="https://forums.freebsd.org/threads/history-of-freebsd-part-1-unix-and-bsd.77407/">https://forums.freebsd.org/threads/history-of-freebsd-part-1-unix-and-bsd.77407/</a>.
+        </li>
+
+
+        <!-- End UNIX HISTORY
+
+            Begin UNIX ARCHITECTURE -->
+
+        <li>
+            Torvalds, L., &amp; Diamond, D. (2002). <em>Just for Fun: The story of an accidental revolutionary.</em> New York ; London ; Toronto ; Sydney: Harper.
+        </li>
+
+        <li>
+            "The GNU Project."  <em>About the GNU Project - GNU Project - Free Software Foundation,</em> Free Software Foundation, Inc., 12 Sept. 2020, 02:00:07,
+            <a href="https://www.gnu.org/gnu/thegnuproject.html">https://www.gnu.org/gnu/thegnuproject.html</a>.
+        </li>
+
+        <li>
+            Stallman, R. (n.d.). Why Programs Should be Shared. Retrieved February 01, 2021, from <a href="https://www.gnu.org/gnu/why-programs-should-be-shared.html">https://www.gnu.org/gnu/why-programs-should-be-shared.html</a>
+        </li>
+
+        <li>
+            Stallman, R. (n.d.). Initial Announcement. Retrieved February 01, 2021, from <a href="https://www.gnu.org/gnu/initial-announcement.html">https://www.gnu.org/gnu/initial-announcement.html</a>
+        </li>
+
+        <li>
+            "Overview of the GNU System." <em>Overview of the GNU System - GNU Project - Free Software Foundation,</em>
+            Free Software Foundation, Inc., 4 Sept. 2017, 10:21:27,
+            <a href="http://www.gnu.org/gnu/gnu-history.html">www.gnu.org/gnu/gnu-history.html</a>.
+        </li>
+
+        <li>
+            Copyleft. (2021, January 31). Retrieved February 01, 2021, from <a href="https://en.wikipedia.org/wiki/Copyleft">https://en.wikipedia.org/wiki/Copyleft</a>
+        </li>
+
+        <li>
+            Stallman, R. (n.d.). The GNU Manifesto. Retrieved February 01, 2021, from <a href="https://www.gnu.org/gnu/manifesto.html">https://www.gnu.org/gnu/manifesto.html</a>
+        </li>
+
+        <li>
+            The GNU General Public License v3.0 - GNU Project - Free Software Foundation. (2007, June 29). Retrieved May 04, 2021, from <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">https://www.gnu.org/licenses/gpl-3.0.en.html</a>
+        </li>
+
+        <li>
+            The Structure and Administration of the GNU Project. <em>The Structure and Administration of the GNU Project - GNU Project - Free Software Foundation,</em>
+            Free Software Foundation, Inc., 10 October 2020, 13:07:59,
+            <a href="https://www.gnu.org/gnu/gnu-structure.html">https://www.gnu.org/gnu/gnu-structure.html</a>.
+        </li>
+
+        <li>
+            Torvalds, L. (1992, July 31).  LINUX's History.  Retrieved August 27, 2020, from <a href="https://www.cs.cmu.edu/~awb/linux.history.html">https://www.cs.cmu.edu/~awb/linux.history.html</a>
+        </li>
+
+        <li>
+            Raymond, E. S. (2002, August 02). The Cathedral and the Bazaar. Retrieved December 12, 2020, from <a href="http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html#catbmain">http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html#catbmain</a>
+        </li>
+
+        <li>
+            Greg Kroah-Hartman. (2020, September 29). Retrieved October 30, 2020, from <a href="https://en.wikipedia.org/wiki/Greg_Kroah-Hartman">https://en.wikipedia.org/wiki/Greg_Kroah-Hartman</a>
+        </li>
+
+        <li>
+            Anderson, T. (2020, October 26). Linux kernel's Kroah-Hartman: We're not struggling to get new coders, it's code review that's the bottleneck. Retrieved October 30, 2020, from <a href="https://www.theregister.com/2020/10/26/linux_kernel_intel/">https://www.theregister.com/2020/10/26/linux_kernel_intel/</a>.
+        </li>
+
+        <!--    
+            End Linus Kernel
+
+            Begin Linux Distributions
+        -->
+
+        <li>
+            Delony, D. (2012, September 12). History of Early Linux Distros. Retrieved January 20, 2021, from <a href="https://www.maketecheasier.com/history-of-early-linux-distros/">https://www.maketecheasier.com/history-of-early-linux-distros/</a>
+        </li>
+
+      
+        <li>
+            Klemmer, J. (n.d.). A Short History of Linux Distributions. Retrieved January 20, 2021, from <a href="https://lwn.net/Articles/91371/">/https://lwn.net/Articles/91371/</a>
+        </li>
+
+        <li>
+            Softlanding Linux System. (2020, February 23). Retrieved January 20, 2021, from <a href="https://en.wikipedia.org/wiki/Softlanding_Linux_System">https://en.wikipedia.org/wiki/Softlanding_Linux_System</a>
+        </li>
+
+        <li>
+            Hughes, P. (1994, April 1). Interview with Patrick Volkerding. Retrieved January 20, 2021, from <a href="https://www.linuxjournal.com/article/2750">https://www.linuxjournal.com/article/2750</a>
+        </li>
+
+        <li>
+            The Slackware Linux Project: About This Site. (n.d.). Retrieved January 20, 2021, from <a href="http://www.slackware.com/about/">http://www.slackware.com/about/</a>
+        </li>
+
+        <li>
+            The Slackware Linux Project: General Information. (n.d.). Retrieved January 20, 2021, from <a href="https://www.slackware.com/info/">https://www.slackware.com/info/</a>
+        </li>
+
+        <li>
+            Ian Murdock. (2021, February 15). Retrieved May 16, 2021, from <a href="https://en.wikipedia.org/wiki/Ian_Murdock">https://en.wikipedia.org/wiki/Ian_Murdock</a>.
+        </li>
+
+
+        <li>
+            Murdock, I. A. (1994, January 6). The Debian Manifesto. Retrieved January 20, 2021, from <a href="https://www.debian.org/doc/manuals/project-history/manifesto.en.html">https://www.debian.org/doc/manuals/project-history/manifesto.en.html</a>
+        </li>
+
+        <!--
+            Begin Linux Mint
+        -->
+
+        <li>
+            New features in Linux Mint 19 Cinnamon. (2018, June 29). Retrieved May 05, 2021, from <a href="https://www.linuxmint.com/rel_tara_cinnamon_whatsnew.php">https://www.linuxmint.com/rel_tara_cinnamon_whatsnew.php</a>
+        </li>
+
+        <li>
+            Montly News - March 2021. (2021, March 31). Retrieved May 17, 2021, from <a href="https://blog.linuxmint.com/?p=4049">https://blog.linuxmint.com/?p=4049</a>
+        </li>
+    </ol>
+</div>
+
+

@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/img/200px-Tux.svg.png">
+
+    
+        <title> Terminals and Shells : Learning Linux </title>
+    
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+    <script src="./assets/js/animate-nav-2.js"> </script>
+</head>
+<body>
+
+    
+
+<div id="nav_bar_1" class="nav">
+    <ul>
+        
+        <li><a href="./"><b style="line-height: 1;">Learning Linux</b></a></li>
+        
+        <li><a href="./intro-to-gnu-linux.html">Introduction to GNU/Linux</a></li>
+        
+        <li><a href="./files.html">Files</a></li>
+        
+        <li><a href="./processes.html">Processes</a></li>
+        
+        <li><a href="./terminals-and-shells.html" class="active">Terminals and Shells</a></li>
+        
+        <li><a href="./packages.html">Packages</a></li>
+        
+        <li><a href="./how-open-source-works.html">How Open-Source Works</a></li>
+        
+    </ul>
+</div>
+
+
+    <!--
+
+<h3>Further Reading:</h3>
+
+		<li> Libes, Sol.  <i>Small Computer Systems Handbook</i>.  Published 1978, by Hayden Book Co. </li>
+		<li> Shuford, Richard S. <a href="https://invisible-mirror.net/archives/shuford/terminal/first_principles.html"><i>First Thoughts about Terminal Emulation</i></a>. </li>
+		<li> Ben-Halim, Zeyd M., Raymond, Eric S., Dickey, Thomas E. <a href="http://man7.org/linux/man-pages/man5/terminfo.5.html">man 5 terminfo</a>.  The Linux Man-Pages Project. Retrieved April 6, 2020.</li>
+		<li> Dickey, Thomas E.  <a href="https://invisible-island.net/xterm/xterm.faq.html#what_is_vt220"><i>"What is a VT220?"</i></a>. Retrieved April 6, 2020.</li>
+		<li> <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/tty/Kconfig?id=HEAD">Kernel Driver Source</a>.  Maintained by Linux Torvalds.</li>
+		<li> <a href="https://www.kernel.org/doc/html/v5.4/admin-guide/devices.html">The Kernel Administrators Guide; Linux Allocated Devices</a>. </li>
+		<li> <a href="http://ascii-table.com/ansi-escape-sequences-vt-100.php">ANSI Escape Sequences</a>. ASCII-Table.com.  Retrieved April 6, 2020.</li>
+		<li> <a href="https://linux.die.net/man/7/x"> man 7 x </a>.  Written by X.Org Foundation, LLC.  Hosted by die.net hosting.</li>
+-->
+
+
+<div id="nav_bar_2" class="nav">
+	<ul>
+		<li><a href="#introduction"> Introduction </a></li>
+		<li><a href="#terminals"> Terminals and Terminal Emulators</a></li>
+		<li><a href="#shells"> Shells </a></li>
+        <li><a href="#commands">Commands and Arguments</a></li>
+        <li><a href="#pwd">Working Directory</a></li>
+        <li><a href="#standard-file-descriptors">The Standard File Descriptors</a></li>
+        <li><a href="#redirection">Redirection and Pipeing</a></li>
+        <li><a href="#scripting">Scripting</a></li>
+        <li><a href="#closing-remarks">Closing Remarks</a></li>
+        <li><a href="#missing-semester">Missing Semester</a></li>
+		<li><a href="#references"> References </a></li>
+	</ul>
+</div>
+
+<div id="introduction" class="content">
+	<h1> Terminals and Shells</h1>
+
+    <div class="quote-text">
+        "When you type to UNIX, a gnome deep in the system<br>
+        is gathering your characters and saving them in a secret place. <br>
+        The characters will not be given to a program until you <br>
+        type return (or new-line), as described above in <em>Logging in.</em>"
+    </div>
+
+    <div class="quote-ref" style="width: 50%;">
+        Ken Thompson and Dennis Ritchie<br>
+        <a href="https://ia800600.us.archive.org/19/items/v6-manual/v6-manual.pdf">UNIX Programming Manual, Sixth Edition</a><br>
+		May, 1975
+    </div>
+
+    <p>
+        Though foreign to most users, the text-terminal is the original
+        interface for interactive computing.
+        As Dr. Brian Kerninghan put it, this interface forms a language unto itself,
+        with files serving as the nouns of the language and commands 
+        as verbs.<sup><a href="#references">[1]</a></sup>
+        For a tutorial introduction, see 
+        <a href="https://effective-shell.com/">Effective Shell</a> by Dave Kerr or <a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview">The Linux Command Line for Beginners</a>. 
+    </p>
+</div>
+
+<div id="terminals" class="content">
+	<h2 style="margin-bottom: 2pt;">Terminals</h2>
+	<h4>and Terminal Emulators</h4>
+
+	<p>
+		A <i>terminal</i> is a computer peripheral similar to a typewriter.
+		The earliest examples printed output onto paper.
+		These terminals were produced well into the 1970's, and later
+        electronic typewriters often supported terminal mode,
+		allowing them to interface with computers via serial cable.
+	</p>
+
+	<center>
+		<a title="Peter Hamer, CC BY-SA 2.0 &lt;https://creativecommons.org/licenses/by-sa/2.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Ken_Thompson_(sitting)_and_Dennis_Ritchie_at_PDP-11_(2876612463).jpg"><img width="1024" alt="Ken Thompson (sitting) and Dennis Ritchie at PDP-11 (2876612463)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ken_Thompson_%28sitting%29_and_Dennis_Ritchie_at_PDP-11_%282876612463%29.jpg/1024px-Ken_Thompson_%28sitting%29_and_Dennis_Ritchie_at_PDP-11_%282876612463%29.jpg"></a>
+        Ken Thompson (sitting) and Dennis Ritchie at PDP-11, in Bell Labs' <em>Unix Room</em><sup><a href="#references" title="Kernighan, p. 45">[1]</a></sup>
+	</center>
+
+    <p>
+		As technology developed and interactive computing became more popular,
+		hard-copy terminals were phased out in favor of
+		screen-based entities.
+		The resulting devices consisted of a monitor and keyboard.
+        Within Unix-like operating systems, terminals are represented by 
+        <code>tty</code> device files.  
+	</p>
+
+	<h3> Terminal Emulators </h3>
+	<p>
+		Terminals persist today in the form of
+        <a href="https://docs.xfce.org/apps/xfce4-terminal/introduction">terminal emulators</a>.
+        A terminal emulator is a program that runs within the context of a desktop
+        environment and provides the functionality of a physical terminal.
+        On-screen, it looks sorta like:
+	</p>
+
+	<figure>
+		<img src="assets/img/gnome-terminal.png">
+		<figcaption><center>GNOME Terminal Emulator</center></figcaption>
+	</figure>
+
+	<p>
+		Some modern terminal emulators:
+	</p>
+
+	<p>
+		<ul style="list-style: none;">
+			<li> <a href="https://wiki.gnome.org/Apps/Terminal">GNOME Terminal</a>&mdash; A terminal emulator for GNOME</li>
+			<li> <a href="https://github.com/alacritty/alacritty "> alacritty</a>&mdash; A GPU-accelerated terminal emulator</li>
+			<li> <a href="https://github.com/GitSquared/edex-ui">edex-ui</a>&mdash; A terminal emulator designed to make you look <i>insanely badass</i> </li>
+            <li> <a href="https://hyper.is/">Hyper</a>&mdash; An <a href="https://www.electronjs.org/">Electron</a>-based terminal</li>
+            <li> <a href="https://github.com/Swordfish90/cool-retro-term">Cool Retro Term</a>&mdash; 'nuff said!</li>
+            <li><a href="https://github.com/sedwards2009/extraterm">Extraterm</a> - The Swiss Army Chainsaw of Terminal Emulators</li>
+		</ul>
+	</p>
+
+	<p>
+		These emulators are "dumb" in the sense that they do nothing except
+		display text and return text.
+		Per tradition, their input and output is handled through device files.
+	</p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.youtube.com/watch?v=RuZUPpmXfT0&t=4s">DEC VT320: The Classic 1987 Library Computer Terminal</a> (Youtube Video)</li>
+        <li><a href="https://github.com/cdleon/awesome-terminals">Awesome Terminals</a></li>
+        <li><a href="https://www.man7.org/linux/man-pages/man1/tty.1.html"><code>tty(1)</code></a> - Print the file name of the terminal connected to standard input</li>
+    </ul>
+</div>
+
+<div id="shells" class="content">
+	<h2> Shells </h2>
+
+	<p>
+		A shell is a program which interprets and executes our (arbitrary) commands.
+		It is a <em>shell</em> in the sense that it is the outermost layer of the
+		operating system, with which the user has direct
+        contact.<sup><a href="http://www.linfo.org/kernel.html">[2]</a></sup>
+		The Unix architecture entertains the shell as an ordinary user-space process.
+	</p>
+
+    <div class="aside-right">
+		<h4>Aside:</h4>
+		<p>
+		    <a href="https://itsfoss.com/what-is-desktop-environment/">
+                Desktop environments
+            </a>
+            serve a role analogous to shells.
+		<p>
+	</div>
+
+
+	<p>
+		Some modern shells:
+	</p>
+
+	<ul style="list-style: none;">
+        <li><a href="https://www.gnu.org/software/bash/">Bash</a>&mdash; GNU's <em>Bourne Again Shell</em> is the standard shell in GNU/Linux.</li>
+        <li><a href="http://zsh.sourceforge.net/">Zsh</a>&mdash; An extension to <em>Bash</em> with a focus on interative features.</li>  
+		<li><a href="https://fishshell.com/">Fish</a>&mdash; The Friendly Interactive Shell</li>
+        <li><a href="https://xon.sh">Xonsh</a>&mdash; A Pythonic shell, written in Python</li>
+        <li><a href="https://www.nushell.sh/">Nushell</a>&mdash; An interactive shell, supporting piplines of structured data, in addition to simple text streams.</li>
+        <li><a href="https://elv.sh/">Elvish</a>&mdash; An "expressive programming language and versatile interactive shell." Version 1.0 not yet released</a></li>
+	</ul>
+
+    <p>
+        A shell is launched for you when a terminal emulator window is opened.
+        You can find out which shell is running
+        by executing the <code>ps</code> command:
+    </p>
+
+    <figure>
+		<img src="assets/img/gnome-w-bash-ps.png">
+	</figure>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="assets/simple-shell.c">simple-shell.c</a> - A very simple shell, written in C</li>
+        <li><a href="http://man.cat-v.org/unix-1st/1/sh">sh(1)</a> (First Edition)</li>
+    </ul>
+</div>
+
+<div class="content" id="commands">
+    <h2 style="margin-bottom: 0">Commands</h2>
+    <h4>and Arguments</h4>
+
+    <p>
+        A typical line of input has the following form:
+    </p>
+
+    <div class="code">
+        $ <i>command</i> [arg1 arg2...]
+    </div>
+
+    <p>
+        This corresponds directly to, <em>Find and execute <code>command</code>, 
+        and pass it arguments <code>[arg ...]</code>.</em>
+        There are a few places the shell looks for the command being executed.
+        In order: 
+    </p>
+
+    <ol>
+        <li>User-defined functions - A way to group commands</li>
+        <li>Shell builtin commands - Commands hard-coded into the shell</li>
+        <li>External programs - Commands that exist as separate programs</li>
+    </ol>
+
+    <p>
+        Nearly all commands fall into the third category, 
+        external programs.
+        For example, <code>ls</code> is an external program, and
+        can be found in <code>/usr/bin</code>.
+    </p>
+
+    <h3>Arguments</h3>
+
+    <p>
+        Commands are the first part of a "typical line of input"; 
+        the other is arguments.
+        Like commands, arguments are supplied by the user. 
+        They are passed to each function, builtin, or program as it begins 
+        execution, and it is up to that command to interpret them.
+    </p>
+
+     <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Two tools to identify commands are
+            <code>type</code> and <code>which</code>.
+        </p>
+    </div>
+
+    <p>
+        For example, <code>echo</code> responds to arguments 
+        very simply&mdash; It prints them back out:
+    </p>
+
+    <div class="code">
+        $ echo one two three four<br>
+        one two three four<br>
+    </div>
+
+    <p>
+        Common arguments include:
+    </p>
+
+    <div class="code">
+        $ <i>command</i> --help
+    </div>
+
+    <p>
+        which typically prints a terse help message; and,
+    </p>
+
+    <div class="code">
+        $ <i>command</i> --version
+    </div>
+
+    <p>
+        which typically prints the version number of the software.
+        See a command's manual page for
+        more documentation.
+    </p>
+
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://fossbytes.com/basic-linux-commands-beginners/">30 Basic Linux Commands for Beginners [Linux 101]</a> - Fossbytes</li>
+        <li><a href="https://www.shell-tips.com/bash/functions/">The Complete How To Guide of Bash Functions</a></li>
+    </ul>
+</div>
+
+<div class="content" id="pwd">
+    <h2>Working Directory</h2>
+
+    <p>
+        Recall that each process has a
+        <a href="/processes.html#attributes">current working directory</a>.
+        Since the shell is a process, it too has a current working directory.
+        At the command line, this is of particular importance:
+        It reflects <em>where you are</em> in the directory tree.
+    </p>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Relative file names are resolved with respect to 
+            the current working directory.  
+        </p>
+    </div>
+
+    <p>
+        The shell's current working directory may be printed with 
+        <code>pwd</code>:
+    </p>
+
+    <div class="code">
+        $ pwd<br>
+        /home/josh
+    </div>
+
+    <p>
+        And we can change its value with <code>cd</code>, effectively
+        moving around:
+    </p>
+
+    <div class="code">
+        $ cd Public<br>
+        $ pwd<br>
+        /home/josh/Public
+    </div>
+
+    <p>
+        Since each directory refers to its parent directory as <code>..</code>,
+        we can always move <em>up</em> the tree with,
+    </p>
+
+    <div class="code">
+        $ cd .. <br>
+        $ pwd<br>
+        /home/josh
+    </div>
+</div>
+
+<div id="standard-file-descriptors" class="content">
+	<h2>Standard File Descriptors</h2>
+
+	<p>
+        The shell is connected to its terminal by three open files,
+        known as the <em>standard file descriptors:</em>
+    </p>
+
+    <ul>
+        <li><code>STDIN</code> the terminal keyboard, at file descriptor 0</li>
+        <li><code>STDOUT</code> the terminal screen, buffered, at file descriptor 1</li>
+        <li><code>STDERR</code> the terminal screen, unbuffered, at file descriptor 2</li>
+    </ul>
+
+    <p>
+        Since open files are preserved across both <em>fork()</em> 
+        and <em>exec(),</em> 
+        each command&mdash; function, builtin or program&mdash;
+        will inherit our keyboard and terminal screen 
+        at these file descriptors.
+    </p>
+
+    <p>
+        For example, the program <code>/usr/bin/ls</code>
+        prints to <code>STDOUT</code>, and our command
+    </p>
+
+    <div class="code">
+        $ ls
+    </div>
+
+    <p>
+        runs that program in the context of the terminal.
+    </p>
+</div>
+
+<div class="content" id="redirection">
+    <h2 style="margin-bottom: 0;">Redirection</h2>
+    <h4>and Pipeing</h4>
+
+    <p>
+        One of the features that makes the Unix command-line interface
+        exceptionally powerful is the ability to direct output away from 
+        the terminal.
+        Since the terminal is represented as a file, 
+        the operations on it and any other file are identical.
+        Thus, we can replace the TTY file a command is going to write to 
+        with a regular file, and capture the command's output in it:
+    </p>
+
+    <div class="code">
+        $ lscpu &gt; cpu_stats
+    </div>
+
+    <p>
+        This is called <em><a href="https://www.gnu.org/software/bash/manual/html_node/Redirections.html">redirection</a>,</em>
+        and here we are redirecting <code>STDOUT</code> to the file
+        <em>cpu_stats.</em>
+        <code>STDERR</code> has not been changed, and therefore the terminal
+        remains the destination for any error messages.
+    </p>
+
+    <p>
+        Redirection operators <code>&lt;</code>, <code>&gt;</code>, and
+        <code>2&gt;</code> redirect <code>STDIN</code>, 
+        <code>STDOUT</code>, and <code>STDERR</code>, respectively.
+        Redirections are interpreted by the shell before the command 
+        executes, and are not passed as arguments to the command.
+    </p>
+
+    <h3>Pipeing</h3>
+
+    <p>
+        Since terminals are represented as files, and terminal-bound
+        programs deal in text, we have a few other tricks up our sleeve.
+        By using the pipe operator <code>|</code>, we can direct
+        the output (<code>STDOUT</code>) of one command to the 
+        input (<code>STDIN</code>) of another.
+        This is called a <em>pipeline,</em> and allows us to 
+        manipulate program output as a stream of text.
+    </p>
+
+    <p>
+        For example, Section 7 of the manual pages contains many
+        interesting articles, and we can get a single line summary
+        of each using <code>apropos</code>:
+    </p>
+
+    <pre class="code" style="line-height: .6;">
+$ apropos -s 7 '.*' <br>
+bpf-helpers (7)      - list of eBPF helper functions<br>
+gnupg (7)            - The GNU Privacy Guard suite of programs<br>
+RAND (7ssl)          - the OpenSSL random generator<br>
+Standards (7)        - X Window System Standards and Specifications<br>
+UPower (7)           - System-wide Power Management<br>
+utf-8 (7)            - an ASCII compatible multibyte Unicode encoding<br>
+address_families (7) - socket address families (domains)<br>
+aio (7)              - POSIX asynchronous I/O overview<br>
+armscii-8 (7)        - Armenian character set encoded in octal, decimal, and ...<br>
+arp (7)              - Linux ARP kernel module.<br>
+[...]
+    </pre>
+
+    <p>
+        By piping this output into the <code>sort</code> command, 
+        we can alphabatize this, forming something closer to an index:
+    </p>
+
+    <pre class="code" style="line-height: .6;">
+$ apropos -s 7 '.*' | sort <br>
+address_families (7) - socket address families (domains)<br>
+aio (7)              - POSIX asynchronous I/O overview<br>
+armscii-8 (7)        - Armenian character set encoded in octal, decimal, and ...<br>
+arp (7)              - Linux ARP kernel module.<br>
+ascii (7)            - ASCII character set encoded in octal, decimal, and hex...<br>
+asymmetric-key (7)   - Kernel key type for holding asymmetric keys<br>
+attributes (7)       - POSIX safety concepts<br>
+audit.rules (7)      - a set of rules loaded in the kernel audit system<br>
+backend (7)          - cups backend transmission interfaces<br>
+bio (7ssl)           - Basic I/O abstraction<br>
+[...]
+    </pre>
+
+    <p>
+        We can continue in this fashion: 
+        If we only want the first few lines, we can pipe the results into <code>head</code>:
+    </p>
+
+    <div class="code">
+        $ apropos -s 7 '.*' | sort | head
+    </div>
+
+    <p>
+        If we want only the last few lines, we can use <code>tail</code>:
+    </p>
+
+    <div class="code">
+        $ apropos -s 7 '.*' | sort | tail
+    </div>
+
+    <p>
+        And if we want to page through the results, we can pipe into <code>less</code>:
+    </p>
+
+    <div class="code">
+        $ apropos -s 7 '.*' | sort | less
+    </div>
+
+    <h3>See Also</h3>
+    <ul>
+        <li><a href="https://youtu.be/oB1uZf6Z27Y">Lesson 3: I/O, Redirect, & Pipe: Pipin' Ain't Easy But It Sure Is Fun</a> by Level 099 Techs (Youtube video)</li>
+        <li><a href="https://youtu.be/mV_8GbzwZMM">Linux Command Line Pipes and Redirection</a> by Engineer Man (Youtube Video)</li>
+    </ul>
+</div>
+
+<div class="content" id="scripting">
+    <h2>Scripting</h2>
+
+    <p>
+        The last trick up our sleeve is saving a sequence of commands
+        into a text file, then executing the file as a program.
+        Such programs are called <em>scripts,</em> and lend the 
+        command-line a great deal of power: Rather than repeating
+        ourselves, we can simply save commands into a file, then
+        execute the file.
+    </p>
+
+    <p>
+        The first line of a script must begin with the characters
+        <code>#!</code>.
+        This line is referred to as <em>shebang,</em>
+        and designates the program that will interpret the script.
+    </p>
+
+    <div class="aside-right">
+        <h4>Note:</h4>
+
+        <p>
+            A script must be stored as an executable file.
+            One can change a file's mode bits using
+            <code>chmod</code>:
+        </p>
+
+        <div class="code" style="padding-bottom: 10px;">
+            $ chmod +x <em>file</em>
+        </div>
+    </div>
+
+    <p>
+        For example, if we had a file named <code>hello</code>
+        with the following contents,
+    </p>
+
+    <div class="code">
+        #!/usr/bin/sh<br>
+        <br>
+        echo Hello World!
+    </div>
+
+    <p>
+        we could execute it as an external program with,
+    </p>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+
+        <p>
+            Here we are using <code>./</code> to execute a program in the
+            current working directory.
+        </p>
+    </div>
+
+
+    <div class="code">
+        $ ./hello<br>
+        Hello world!
+    </div>
+
+    <p>
+        Shell scripts offer a quick and informal way of programming. 
+        For projects of any size whatsoever, a proper scripting language
+        (such as Python or Ruby) is recommended.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+    <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
+<li><a href="https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php">What is a Bash Script?</a> - Bash Scripting Tutorial</a></li>
+    </ul>
+</div>
+
+<div class="content" id="closing-remarks">
+    <h2 style="margin-bottom: 0;">Closing Remarks:</h2>
+    <h4>fork()</h4>
+
+    <p>
+        The earliest versions of UNIX entertained exactly two processes:
+        One for each of two terminals connected to the machine.<sup><a href="https://www.bell-labs.com/usr/dmr/www/hist.html">[3]</a></sup>
+        The shell,
+        <a href="https://en.wikipedia.org/wiki/Thompson_shell"><code>sh</code></a>,
+        existed as a user-space process, but <em>fork()</em> had not been introduced.
+        To execute a command, the shell replaced itself with
+        the requested program;
+        the program, on calling <em>exit()</em>, replaced itself with the
+        shell once again.<sup><a href="https://www.bell-labs.com/usr/dmr/www/hist.html">[3]</a></sup>
+    </p>
+
+    <p>
+        In particular, <em>change directories</em> was implemented
+        as a separate command.
+        When invoked, it inherited the shell's current working directory,
+        changed it, and then the shell inherited the resulting working directory.
+        With the inclusion of the <em>fork()</em> system call, though,
+        the <code>chdir</code> command broke:
+    </p>
+
+    <blockquote>
+        "There was much reading of code and anxious introspection about how
+        the addition of fork could have broken the chdir call. Finally the
+        truth dawned: in the old system chdir was an ordinary command; it
+        adjusted the current directory of the (unique) process attached to
+        the terminal. Under the new system, the chdir command correctly
+        changed the current directory of the process created to execute it,
+        but this process promptly terminated and had no effect whatsoever on
+        its parent shell! It was necessary to make chdir a special command,
+        executed internally within the shell. It turns out that several
+        command-like functions have the same property, for example login."<sup><a href="https://www.bell-labs.com/usr/dmr/www/hist.html">[3]</a></sup>
+    </blockquote>
+
+    <p>
+        And so, <em>builtins</em> began.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.bell-labs.com/usr/dmr/www/hist.html">The Evolution of the Unix Time-sharing System</a></li>
+    </ul>
+</div>
+
+<div class="content" id="missing-semester">
+	<h2 style="margin-bottom: 2pt;">Missing Semester</h2>
+	<h4 style="margin-bottom: 18pt;">Lecture 1: Course Overview + The Shell (2020)</h4>
+	<iframe class="video" src="https://www.youtube.com/embed/Z56Jmr9Z34Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div id="references" class="content">
+	<h2> References </h2>
+	<ol>
+		<li> Kernighan, Brian. <i>Unix: A History and a Memoir.</i>  Published 2020, by Brian W. Kernighan via Kindle Direct Publishing. </li>
+        <li> Kernel Definition.  From <em>The Linux Information Project.</em> (2005, May 31) Retrieved April 10, 2021,  from <a href="http://www.linfo.org/kernel.html">http://www.linfo.org/kernel.html</a></li>
+
+        <li>Ritchie, D. M. (1984).<a href="https://www.bell-labs.com/usr/dmr/www/hist.html">The Evolution of the Unix Time-sharing System</a>. <em>AT&amp;T Bell Laboratories Technical Journal,</em> 63(6), 2nd ser., 1577-1593.</li>
+
+	</ol>
+</div>
+
+
+
+
+    <div class="content" id="footer">
+    <center>
+        Questions, comments, concerns? Send all inquiries to
+        <a href="mailto:josh.591536@gmail.com"> Josh Timmons</a>.
+        <br>This page was last updated November, 2021.
+    </center>
+    <br>
+</div>
+
+</body>
+</html>

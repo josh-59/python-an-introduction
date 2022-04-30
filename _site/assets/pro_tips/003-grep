@@ -1,0 +1,28 @@
+<h1> Pro Tip</h1>
+<div id="pro-tip" style="background-color: #f1f1f1;">
+	<br>
+	Find Files with Grep:
+
+	<p>
+	<code>
+		grep -rl . -e PATTERN
+	</code>
+	</p>
+
+	<p>
+		Grep will search each file from "here" downwards,
+		and, if the contents of that file match PATTERN,
+		print the name of the file.
+	</p>
+
+	Option Summary:
+	<ul style="list-style: none; margin: 0; padding: 0">
+		<li><code>-r</code> Recursively descend through directory tree </li>
+		<li><code>-l</code> List files; do not print matching line </li>
+		<li><code>.</code> Begin at current directory </li>
+		<li><code>-e</code>   What follows is a PATTERN
+		</li>
+	</ul>
+	<br>
+
+</div>

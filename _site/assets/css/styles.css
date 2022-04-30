@@ -1,0 +1,128 @@
+:root { --nav-color: #4CAF50; --shaded-background: #f1f1f1; --monospace-font: 'Ubuntu Mono', monospace; }
+
+body { margin: 0; width: 100%; }
+
+h1, h2, h3, h4 { text-align: center; text-decoration: none; }
+
+h1 { font-size: 24pt; margin-bottom: 10px; margin-top: 25px; }
+
+h2 { font-size: 22pt; margin-top: 20pt; }
+
+h3 { font-size: 15pt; }
+
+/* Centered & Italic Header */
+h4 { font-size: 17pt; font-weight: normal; font-style: italic; margin: 5px; margin-top: 0; }
+
+ol { margin-left: 10%; }
+
+/* Navigation */
+.nav ul { list-style-type: none; background-color: var(--shaded-background); position: fixed; margin: 0; padding: 0; height: 100%; width: inherit; /* Inherit from containing element */ overflow: none; /* No scrollbar */ }
+
+/* Inactive page */
+.nav li a { display: block; color: #000; padding: 6px 8px; text-decoration: none; line-height: 1.5; }
+
+/* Active page */
+.nav li a.active { background-color: var(--nav-color); color: white; }
+
+.nav li a:hover:not(.active) { background-color: #555; color: white; }
+
+.img-left, .img-right { margin-top: 5px; margin-bottom: 5px; }
+
+.img-left { float: left; margin-right: 20px; margin-left: 0; }
+
+.img-right { float: right; margin-right: 0; margin-left: 20px; }
+
+img { display: block; margin: 0px auto; max-width: 100%; padding-bottom: 5px; }
+
+/* Uniform background and shading*/
+.aside-left, .aside-right, table, #pro-tip { background-color: var(--shaded-background); outline: 2px solid black; }
+
+.aside-left, .aside-right { width: 20%; margin-top: 5px; margin-bottom: 20px; padding: 20px; padding-bottom: 0; font-size: 11pt; }
+
+.aside-right { float: right; margin-right: 0; margin-left: 20px; }
+
+.aside-left { float: left; margin-right: 20px; margin-left: 0; }
+
+.content .aside-left p, .content .aside-right p { line-height: 1.3; margin-top: 6pt; }
+
+.content .aside-left h4, .content .aside-right h4 { font-size: 15pt; margin: 5px; margin-top: 0; margin-bottom: 0; }
+
+.content .aside-left p em, .content .aside-right p em { font-size: 11pt; }
+
+.aside-left ol, .aside-right ol { padding-left: 0; }
+
+.content .aside-right .code, .content .aside-left .code { width: auto; padding-top: 0; padding-bottom: 0; padding-left: 0; margin: 0; font-size: 12pt; }
+
+table { width: 70%; margin: auto; margin-top: 45px; margin-bottom: 45px; padding: 10px; }
+
+table td { padding-left: 10px; }
+
+/* To facilitate the animated navigation, each section */
+/* is placed in a div of class "content"; this allows */
+/* us to identify the beginning and end of each */
+/* section in a script */
+.content { padding-top: 5px; margin-left: 280pt; margin-right: 40px; max-width: 800px; font-size: 14pt; }
+
+.content p em { font-size: 14pt; }
+
+sup, sub { line-height: 0; font-size: 0.8em; }
+
+.content p, .content blockquote { line-height: 1.5; }
+
+.content blockquote { width: 85%; }
+
+/*  In written work and any superscript, no underline. */
+/*	Otherwise, we want underline. */
+.content p a, sup a { text-decoration: none; }
+
+/* When hovering mouse over link, underline */
+.content p a:hover { text-decoration: underline; }
+
+.content .narrow { width: 75%; margin: auto; }
+
+.content .big-list { margin: auto; margin-top: -20pt; width: 90%; }
+
+.content .big-list li { padding-top: 25px; }
+
+#landing-directory ul { text-align: center; list-style-type: none; padding: 0; margin: 0; margin-bottom: 20px; line-height: 1.3; }
+
+#landing-directory h3 { margin-bottom: 0; }
+
+.content .video { width: 100%; height: 450px; }
+
+.content .code, code { font-family: var(--monospace-font); }
+
+.content h2 code { font-size: 25pt; }
+
+.content .code { width: inherit; padding-top: 20px; padding-bottom: 20px; padding-left: 10%; margin: auto; font-size: 15pt; line-height: 1.1; }
+
+.content code { font-size: inherit; line-height: 1.0; }
+
+.content ul li { padding-top: 5px; padding-bottom: 5px; }
+
+.content ul p { margin-bottom: 0; }
+
+.content .quote-text { text-align: center; }
+
+.content .quote-ref { margin-top: 10px; margin-left: 60%; margin-bottom: 15px; }
+
+.content-wide { margin-left: 150pt; margin-right: 30pt; }
+
+.nav { padding: 0; margin: 0; overflow: auto; }
+
+#nav_bar_1, #nav_bar_2 { width: 120pt; }
+
+/* Same as nav_bar_1, but shifted right 100pt */
+#nav_bar_2 { margin-left: 120pt; }
+
+/* Wide nav bar on landing*/
+#nav_home { width: 240pt; }
+
+/* Shift left */
+#references ol { margin-left: 0; }
+
+#credits { text-align: center; padding-bottom: 25px; }
+
+.smalltext { text-align: right; font-size: 8pt; }
+
+/*# sourceMappingURL=styles.css.map */

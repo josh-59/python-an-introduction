@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/img/200px-Tux.svg.png">
+
+    
+        <title> Packages : Learning Linux </title>
+    
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+    <script src="./assets/js/animate-nav-2.js"> </script>
+</head>
+<body>
+
+    
+
+<div id="nav_bar_1" class="nav">
+    <ul>
+        
+        <li><a href="./"><b style="line-height: 1;">Learning Linux</b></a></li>
+        
+        <li><a href="./intro-to-gnu-linux.html">Introduction to GNU/Linux</a></li>
+        
+        <li><a href="./files.html">Files</a></li>
+        
+        <li><a href="./processes.html">Processes</a></li>
+        
+        <li><a href="./terminals-and-shells.html">Terminals and Shells</a></li>
+        
+        <li><a href="./packages.html" class="active">Packages</a></li>
+        
+        <li><a href="./how-open-source-works.html">How Open-Source Works</a></li>
+        
+    </ul>
+</div>
+
+
+    <!--
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            If the first statement of this section is taken literally, 
+            there are
+            5<sup>500</sup> possible GNU/Linux systems.
+        </p>
+    </div>
+
+
+    Distribution Theory:
+        
+    The regular release model is very maintenance-intensive.
+    For each release, a copy of each software package's source is 
+    maitained by the distribution, separately from the original.
+    In Debian, for example, each binary package has a corresponding
+    <em>source</code> package that is used to build the binary.
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Debian releases are named after Toy Story characters.
+        </p>
+    </div>
+
+    The rolling release model is less maintenance-intensive.
+    In Arch, for example, each package is maintained through a 
+    single Bash script, <code>PKGBUILD</code>.  Like Gentoo's 
+    scripts, these follow a distinct format and define 
+    functions to be called when creating the package.
+
+    A copy of the source <em>is not</em> kept, and
+    modifications to source are minimized, thereby leaving it
+    to the software's source maintainer to 
+    
+
+
+
+    <div class="quote-text">
+        "Modularity is extremely important to <br>
+        such a large collection of
+        software as a distribution."
+    </div>
+
+    <div class="quote-ref">
+        <a href="https://www.linuxjournal.com/article/2841">Ian Murdock</a>
+    </div>
+
+    Package Distribution:
+        Add bit about flatpak:
+        https://flatpak.org/
+
+    <p>
+        Other ways of distributing open-source software have been invented,
+        including Flatpak, Snap Store, and <em>nix</em>
+    </p>
+
+
+    Gentoo:
+        ebuild(5): https://dev.gentoo.org/~zmedico/portage/doc/man/ebuild.5.html
+        ebuild phase functions: https://devmanual.gentoo.org/ebuild-writing/functions/
+
+        Stress that the automation speeds up the process,
+        and that distributing packages in binary format is 
+        as fast as it gets.
+
+
+        <li><a href="https://flight-manual.atom.io/getting-started/sections/installing-atom/">Installing Atom</a> (Example instructions to add repository)</li>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Typical ("point") releases are
+            <a href="https://semver.org/">minor revisions</a>
+            that do not affect intended behavior.
+        </p>
+    </div>
+
+        <p>
+            In open-source software, as in any other field, there are
+            known-good ideas and known-bad ideas.
+        </p>
+
+        <ul>
+            <li>
+                Known-good ideas:
+                <ul>
+                    <li>Dynamic linking</li>
+                    <li>Reiterative improvement</li>
+                    <li>Breaking a problem down and solving the pieces</li>
+                    <li>Abdicating responsibility to people who actually want to do it</li>
+                </ul>
+            </li>
+            <li>
+                Known-bad ideas:
+                <ul>
+                    <li>Static linking</li>
+                </ul>
+            </li>
+        </ul>
+
+
+
+-->
+
+<div id="nav_bar_2" class="nav">
+    <ul>
+        <li><a href="#introduction"> Introduction </a></li>
+        <li><a href="#open-source"> Open Source</a></li>
+        <li><a href="#building-from-source">Building an OS from Source</a></li>
+        <li><a href="#binary-packages">Binary Packages</a></li>
+        <li><a href="#package-managers">Package Managers</a></li>
+        <li><a href="#distributions">Distributions</a></li>
+        <li><a href="#references"> References </a></li>
+    </ul>
+</div>
+
+<div class="content" id="introduction">
+    <h1>Packages</h1>
+
+    <div class="quote-text">
+        Software components should be small, <br>
+        and focused on doing one specific thing well.
+    </div>
+
+    <div class="quote-ref">
+        <a href="https://github.com/dwmkerr/hacker-laws#the-unix-philosophy">Unix Philosophy</a>
+    </div>
+
+    <p>
+        A <em>package</em> is a logical unit of software.
+        The obvious example is a program, but libraries are packages, too.
+        Packages may exist in either source-code or precompiled form;
+        to configure and compile source code into usable form
+        is to <em>build</em> it.
+        The purpose of this article is to orient the user to the package-centric
+        landscape of pragmatic open-source.
+    </p>
+</div>
+
+<div class="content" id="open-source">
+    <h2>Open Source</h2>
+
+    <p>
+        The GNU GPL stipulates that licensed software be available in source-code
+        form. The GNU-way of building and installing their stuff is:
+    </p>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            The ordinary user is not expected to build software from source.
+        </p>
+    </div>
+
+    <div class="code">
+        # ./configure &amp;&amp; make &amp;&amp; make install
+    </div>
+
+
+    <p>
+        Each project uses its own language and build system;
+        the above
+        <a href="https://www.gnu.org/software/bash/manual/html_node/Lists.html#Lists">list</a>
+        of commands presupposes C/C++ source built via
+        GNU's <em>Autoconf.</em>
+        Most packages include documentation 
+        to build, install, or tinker.
+    </p>
+
+    <p>
+        The traditional UNIX package format is a compressed tarball, a file
+        ending in <code>.tar.xz</code>, or <code>.tar.gzip</code>.
+        One extracts such an archive with:
+    </p>
+
+    <div class="code">
+        $ tar xf kernel-5.10.tar.xz
+    </div>
+
+    <p>
+        yielding a directory reflective of its original packager's.
+    </p>
+
+</div>
+
+<div id="building-from-source" class="content">
+    <h2>Building an OS from Source</h2>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            A new version of the documentation is released about every six months.
+        </p>
+    </div>
+
+    <p>
+        <a href="http://linuxfromscratch.org/">Linux From Scratch</a> is
+        documentation describing how to build a working
+        GNU/Linux system entirely from source.
+        One obtains 88 different packages, and goes about configuring,
+        compiling and installing them by hand.
+    </p>
+
+    <p>
+        Open-source is all about choice, and for some,
+        Linux from Scratch is the only way to go.
+        However, building anything from source is time-consuming and labor-intensive.
+        In particular, security updates are left entirely to the user.
+        The ordinary user is not expected to build software from source.
+    </p>
+
+    <p>
+        As a step towards speeding up the package installation process, 
+        we might note that both <em>building</em> and 
+        <em>installing</em> are per-package specific.
+        Hence, we could maintain scripts describing
+        how to do these things, and let the computer do them for us.
+    </p>
+
+    <div class="aside-right">
+        <h4>Note:</h4>
+        <p>
+            Gentoo additionally supports precompiled packages.
+        </p>
+    </div>
+
+    <p>
+        <a href="https://www.gentoo.org/">Gentoo Linux</a> 
+        is an operating system built around this idea.
+        The mechanized instructions to build software are kept in
+        <code>ebuild</code>'s&mdash; Bash scripts which
+        additionally describe where to obtain source code.
+        These are interpretted by the user's machine,
+        and <a href="https://devmanual.gentoo.org/ebuild-writing/functions/">executing them</a> 
+        results in a new package being installed.
+    </p>
+
+    <p>
+        The scheme is minimal, transparent and flexible, and Gentoo is all about
+        openness and choice.<sup><a href="https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/About">[1]</a></sup>
+        Compilation remains time-consuming: It can take over a day
+        to build a working system, but nonetheless begins to be
+        approachable by ordinary users.
+    </p>
+
+    <h3> See Also:</h3>
+    <ul>
+        <li><a href="http://linuxfromscratch.org/blfs/view/stable/introduction/notes-on-building.html">Notes on Building Software</a> - Beyond Linux From Scratch</a></li>
+    </ul>
+</div>
+
+<div id="binary-packages" class="content">
+    <h2> Binary Packages </h2>
+
+    <p>
+        Packages are usually distributed in preconfigured and precompiled 
+        form.
+        This yields a smaller archive, saves users the
+        time-consuming step of compilation, and allows the
+        complete automation of installation.
+        And software installation is fast!
+        The implication, however, is that each package is configured
+        for a particular operating system, and compiled for a 
+        particular CPU architecture.
+    </p>
+
+    <p>
+        Among major distributions, the Slackware Project entertains the
+        oldest, and possibly simplest, binary packaging scheme.
+        By modern standards, it may be considered crude,
+        because it leaves dependency resolution to the user.<sup><a href="https://www.slackbook.org/html/package-management.html">[2]</a></sup>
+        It is easily dissected, though, and so represents a nice example
+        for us.
+    </p>
+
+    <p>
+        A Slackware package arrives to the user as a compressed tarball.
+        In this file is a directory tree reflective of the Slackware operating
+        system, such as:
+    </p>
+
+    <div class="code">
+        $ tree slackware-vim-fake <br>
+        . <br>
+        ├── install <br>
+        │   ├── doinst.sh <br>
+        │   └── slack-desc <br>
+        └── usr <br>
+            &ensp;&ensp;&ensp;&ensp;├── bin <br>
+            &ensp;&ensp;&ensp;&ensp;│   └── vim <br>
+            &ensp;&ensp;&ensp;&ensp;├── doc <br>
+            &ensp;&ensp;&ensp;&ensp;│   └── vim <br>
+            &ensp;&ensp;&ensp;&ensp;│   &ensp;&ensp;&ensp;&ensp;├── COPYING <br>
+            &ensp;&ensp;&ensp;&ensp;│   &ensp;&ensp;&ensp;&ensp;└── README <br>
+            &ensp;&ensp;&ensp;&ensp;└── man <br>
+            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└── man1 <br>
+            &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;└── vim.1.gz
+    </div>
+
+    <div class="aside-right">
+        <h4>Note:</h4>
+        <p>
+            The <code>install</code> directory is otherwise ignored.
+        </p>
+    </div>
+
+    <p>
+        To install the package, the archive is extracted and each file
+        is copied into its respective directory of the host operating system;
+        if a directory does not exist, it is created.
+        After these files are copied, the script
+        <code>./install/doist.sh</code> is executed, if it exists.
+    </p>
+
+    <p>
+        ...And that's it!
+    </p>
+
+    <p>
+        The installation utility is, in this case, either
+        <a href="https://www.slackbook.org/html/package-management-package-utilities.html"><code>installpkg</code> or <code>pkgtools</code></a>.
+        It must be granted root privilege.
+    </p>
+
+    <p>
+        All major distributions deal in binary packages, and use similar
+        compressed-archives of "reflective directory trees,"
+        though each to their own taste.
+        By and large, however, the <em>package</em> is intended to be
+        an opaque data format, and we will not dissect it further.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://tldp.org/HOWTO/Software-Building-HOWTO.html">Building and Installing Software Packages for Linux</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Tar_(computing)">tar (computing) - Wikipedia </a></li>
+    </ul>
+</div>
+
+<div class="content" id="package-managers">
+    <h2> Package Managers </h2>
+
+    <p>
+        A <em>package manager</eM> is a utility that obtains and installs 
+        packages.
+        Package managers are distribution-specific, and serve
+        as users' interface to their repositories.
+        Whereas Slackware leaves dependency resolution to the user, 
+        most modern package management
+        suites keep a dependency list in each package,
+        and resolve the list automatically. 
+    </p>
+
+    <p>
+        To name a few:
+    </p>
+
+    <ul>
+        <li>Debian / Ubuntu / Mint: <code><a href="https://en.wikipedia.org/wiki/APT_(software)">apt</a></code></li>
+        <li>Fedora: <code><a href="https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/RPM/">rpm</a></code></li>
+        <li>openSUSE: <code><a href="https://doc.opensuse.org/documentation/leap/reference/html/book-reference/cha-sw-cl.html">zypper</a></code></li>
+        <li>Arch: <code><a href="https://wiki.archlinux.org/title/Pacman">pacman</a></code></li>
+    </ul>
+
+    <p>
+        Package managers are among the most powerful pieces of software
+        on GNU/Linux operating systems.
+        To update a machine utilizing Debian's packaging facilities, 
+        for example, we simply,
+    </p>
+
+    <div class="code">
+        $ sudo apt update <br>
+        $ sudp apt upgrade
+    </div>
+
+    <p>
+        Searching for packages does not require superuser privileges:
+    </p>
+
+    <div class="code">
+        $ apt search vim
+    </div>
+
+    <p>
+        Each package contains a description of itself:
+    </p>
+
+    <div class="code">
+        $ apt show vim
+    </div>
+
+    <p>
+        And can be installed with:
+    </p>
+
+    <div class="code">
+        $ sudo apt install vim
+    </div>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="http://www.slackware.com/releasenotes/packages14.2.php">Slackware 14.2 Package List</a></li>
+        <li><a href="https://en.opensuse.org/Package_management">Package management</a> - openSUSE Wiki</li>
+    </ul>
+</div>
+
+<div class="content" id="distributions">
+    <h2 style="margin-bottom: 0;">Distributions</h2>
+    <h4>and Distribution Models</h4>
+
+    <p>
+        A <em>distribution</em> is a project and community that 
+        obtains open-source software, configures, compiles and assembles 
+        it into useable packages, and makes the results 
+        publicly available.
+        Along the way, they define overarching system practices, within
+        which their packages will fit.
+    </p>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Here we are adopting the view that distributions focus
+            primarily on package propogation, rather than operating systems.
+            This view is implemented very directly in Arch Linux.
+            For example, the package <code><a href="https://archlinux.org/packages/core/x86_64/filesystem/">filesystem</a></code>
+            creates the system's root directory tree,
+            and initializes its core configuration files.
+        </p>
+    </div>
+
+    <p>
+        There are many successful methods of package distribution,
+        but they can be meaningfully divided into a few kinds.
+        The <em>regular release</em> or <em>static release</em>
+        deals in discrete package sets: 
+        Packages are first composed into a working whole, 
+        then undergo some testing period.
+        The collection is then released publicly, at which point
+        updates are restricted to bug fixes and security updates.
+        Do not expect new features to become available within a 
+        particular release.
+        The set is supported for some length of time&mdash; 
+        <em>Long-Term Support</em> releases are often maintained for
+        five years.
+    </p>
+
+    <p>
+        Distributions following the regular release model:
+    </p>
+
+    <ul>
+        <li> Linux Mint </li>
+        <li> openSUSE Leap </li>
+        <li> Debian </li>
+        <li> Slackware </li>
+        <li> Fedora </li>
+        <li> Ubuntu </li>
+    </ul>
+
+    <p>
+        The <em>rolling release</em> model dispenses with any 
+        versioning scheme.
+        Instead, software is distributed in its "latest stable" form,
+        so that features and fixes become available 
+        to users as they are released by developers.
+        The result is access to cutting-edge software&mdash;
+        and a constant stream of updates.
+        This strategy is growing in popularity, 
+        especially among desktop users.  
+    </p>
+
+    <p>
+        Examples:
+    </p>
+
+    <ul>
+        <li> Arch </li>
+        <li> openSUSE Tumbleweed </li>
+        <li> Garuda </li>
+    </ul>
+
+    <p>
+        Between the two is the <em>semi-rolling release,</em>
+        best explained through example:
+        <a href="https://getsol.us/home/">Solus Linux</a> is an
+        up-and-coming distribution focusing on the home computing.
+        They publish package updates every Friday, which
+        forms their latest release.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://linuxmint-user-guide.readthedocs.io/en/latest/snap.html"> Snap Store </a> - Linux Mint User Guide</li>
+        <li><a href="https://wiki.archlinux.org/index.php/Arch_Linux">Arch Linux</a> - ArchWiki</li>
+    </ul>
+</div>
+
+<div id="references" class="content">
+    <h2> References </h2>
+    <ol>
+        <li><em>About the Gentoo Linux Installation.</em> About the Gentoo Linux Installation - Gentoo Wiki. (2015, January 1). <a href=https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/About">https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/About</a>.</li>
+        <li>Hicks, A., Lumens, C., Cantrell, D., &amp; Johnson, L. (2005). <em>Chapter 18 Slackware Package Management.</em> Slackware Package Management. <a href="https://www.slackbook.org/html/package-management.html">https://www.slackbook.org/html/package-management.html</a>.</li>
+        </li>
+    </ol>
+</div>
+
+
+    <div class="content" id="footer">
+    <center>
+        Questions, comments, concerns? Send all inquiries to
+        <a href="mailto:josh.591536@gmail.com"> Josh Timmons</a>.
+        <br>This page was last updated November 2021.
+    </center>
+    <br>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,646 @@
+---
+layout: default
+title: 'Bash and other stuff'
+last-updated: November, 2021
+---
+
+<!--
+
+    Man pages: Mention <code>mandb</code>
+
+
+    Todo: Stress generality
+
+<div class="content" id="startup-files">
+    <h2>Bash Startup Files</h2>
+
+    <p>
+        There are two big ideas going on with Bash's startup files:
+        1) One file should be executed <em>per user login</em>
+            a) With another file being executed <em>per interactive shell</em>
+        2) Backwards comaptibility
+    </p>
+
+    <p>
+        Bash has many startup files.
+
+    Thompson's (First-Edition) shell sh:
+    Bourne's shell:
+    <p>
+        Bash inherits ideas dating all the way to Thompson's original
+        shell, <code>sh</code>.
+        <Create a faux man-page describing all parts of Thompson's shell
+        that are preserved in "modern" Bash.
+    </p>
+
+    <h4>and Backwards Compatibility</h4>
+
+</div>
+
+
+        <li><a href="https://archive.org/details/pdfy-MgN0H1joIoDVoIC7">The AWK Programming Language</a></li>
+        <li><code><a href="https://en.wikipedia.org/wiki/Less_%28Unix%29#Frequently_used_commands">less</code> (UNIX) - Frequently Used Commands</a> - Wikipedia</li>
+
+
+
+<div class="content" id="shell-haters">
+	<h2 style="margin-bottom: 2pt;">Lesson 3: I/O, Redirect, & Pipe<h2>
+    <iframe class="video" src="https://www.youtube.com/embed/oB1uZf6Z27Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+
+        <li><a href="http://shellhaters.org/">Shell Hater's Handbook</a></li>
+
+
+    <li><a href="https://blog.nelhage.com/2009/12/a-brief-introduction-to-termios/">A Brief Introduction to Termios</a> - Made of Bugs</li>
+
+
+
+Exercises:
+
+    <ol>
+        <li>
+            Explain the behavior of:
+            $ PATH="" printenv
+        </li>
+        <li>
+            The shell is a process, like any other.
+            For your current shell:
+            <ol>
+                <li>What was its command-line arguments</li>
+                <li>
+            </ol>
+        </li>
+        <li>
+            Let <code>script</code> be an executable file containing
+            #!/bin/sh
+            echo hello world
+            There are three ways to execute this command:
+            1) In the current shell context
+            2) In a forked subshell context
+            3) In an <code>exec</code>-induced sh context
+            Produce each, and verify with <code>strace</code>
+        </li>
+        <li>
+            Each section of the manual page has an introduction, <code>intro</code>,
+            but no index.  Why not?  Create an index of Section 7 for yourself.
+        </li>
+        <li>
+            <p>
+                Scripting exercise:
+                Use constructs other than <code>if</code> to append a location
+                to path.
+            </p>
+        </li>
+        <li>
+            <p>
+                The command,
+            </p>
+            <div class="code">
+                $ $(echo cd $PWD)
+            </div>
+            <p>
+                is equivalent to which of the following:
+            </p>
+            <ol>
+                <li>$ cd </li>
+                <li>$ cd $HOME</li>
+                <li>$ cd .</li>
+                <li>$ cd ..</li>
+            </ol>
+        </li>
+    </ol>
+
+-->
+
+<div id="nav_bar_2" class="nav">
+	<ul>
+		<li><a href="#introduction"> Introduction </a></li>
+        <li><a href="#shell-expansion">Shell Expansion</a></li>
+		<li><a href="#random-stuff">Random Stuff</a></li>
+        <li><a href="#man-pages"><code>man</code> Pages</a></li>
+        <li><a href="#finding-files">Finding Files</a></li>
+        <li><a href="#make"><code>make</code></a></li>
+		<li><a href="#shell-haters">The Shell Hater's Handbook</a></li>
+	</ul>
+</div>
+
+<div class="content" id="introduction">
+    <h1>Bash (and other stuff)</h1>
+
+    <div class="quote-text">
+        "When you type to UNIX, a gnome deep in the system<br>
+        is gathering your characters and saving them in a secret place. <br>
+        The characters will not be given to a program until you <br>
+        type return (or new-line), as described above in <em>Logging in.</em>"
+    </div>
+
+    <div class="quote-ref" style="width: 50%;">
+        Ken Thompson and Dennis Ritchie<br>
+        <a href="https://ia800600.us.archive.org/19/items/v6-manual/v6-manual.pdf">UNIX Programming Manual, Sixth Edition</a><br>
+		May, 1975
+    </div>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            In Bash, input is buffered through GNU's
+            <a href="https://www.gnu.org/software/bash/manual/bash.html#Command-Line-Editing">Readline</a>
+            library.
+        </p>
+    </div>
+
+    <p>
+        The above quote refers to <em>buffered i/o,</em> which has been called
+        a "necessary evil" of terminal-based computing.
+        This article will cover some of the 
+        <a href="https://blog.nelhage.com/2009/12/a-brief-introduction-to-termios/">gory detail</a> behind the modern
+        GNU/Linux command-line, then introduce some handy command-line tools.
+    </p>
+</div>
+
+<div class="content" id="shell-expansion">
+    <h2 style="margin-bottom: 0;">Shell Expansion</h2>
+    <h4>and Quote Removal</h4>
+
+    <p>
+        After one presses <em>return</em> at the command line, the preceding
+        line of text is sent to Bash.  
+        Bash makes several passes over the text, interpretting and 
+        modifying it, before executing any command it contains.
+    </p>
+
+    <p>
+        The first pass splits the line by whitespace into <em>tokens.</em> 
+        Two expansion passes follow: <em>shell expansion</em>, 
+        then <em>filename expansion.</em>
+    </p>
+
+    <div class="aside-right">
+        <h4>Note:</h4>
+        <p>
+            If part of the line is single-quoted, it is exempt from 
+            tokenizing and expansion.
+        </p>
+    </div>
+
+    <p>
+        In the shell expansion pass, variables are expanded to their
+        respective values, and command substitution occurs:
+    </p>
+
+    <ol>
+        <li>
+            <a href="https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html">Braces</a>&emsp; <code>{}</code>
+            <br>
+            <code>a{1,2,3}b</code> becomes <code>a1b a2b a3b</code>
+        </li>
+        <li>
+            <a href="https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html">Tilde</a>&emsp;  <code>~</code>
+            <br>
+            <code>~</code> becomes <code>/home/josh</code>
+        </li>
+        <li>
+            <a href="https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html">Parameter</a> &emsp;  <code>$</code>
+            <br>
+            <code>$NAME</code> is replaced by the value of <code>NAME</code>
+            variable, if it exists, and null string otherwise.
+        </li>
+        <li>
+            <a href="https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html">Command</a> &emsp;  <code>$( </code><em>command</em><code> )</code>
+            <br>
+            Executes <em>command</em> in a subshell environment, captures output
+            and replaces <br> <code>$(</code><em>command</em><code>)</code>
+            with said output.  For example, <br>
+            <code>$(which ls)</code> becomes <code>/bin/ls</code>
+        </li>
+        <li>
+            <a href="https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html">Arithmetic</a>&emsp;  <code>$(( </code><em>expression</em><code>  ))</code>
+            <br>
+            Evaluates the arithmetic <em>expression</em> and replaces <code>$((</code><em>expression</em><code>))</code> with result
+        </li>
+    </ol>
+
+    <p>
+        These expansions can be understood through the
+        <code>echo</code> command, which, as a rule, simply prints 
+        out whatever arguments it recieves.
+        In the following example, the <code>echo</code> command
+        recieves exactly two arguments, <code>12</code> and <code>13</code>,
+        and it is Bash that has done the work:
+    </p>
+
+    <div class="code">
+        $ echo 1{2,3}<br>
+        12 13
+    </div>
+
+    <h3 id="globbing"> Filename Expansion </h3>
+
+    <p>
+    The second expansion pass is <a href="https://www.gnu.org/software/bash/manual/html_node/Filename-Expansion.html#Filename-Expansion"><em>filename expansion</a>,</em> traditionally
+        referred to as <em>globbing.</em>
+        After shell expansion, each token is scanned again for 
+        whitespace and split; the results are referred to as <em>words.</em>
+        If a word contains an asterisk <code>*</code>, question mark
+        <code>?</code>, or brackets <code>[]</code>, then it is regarded as a
+        <em>pattern,</em> and is replaced by an alphabetical list of all
+        filenames in the current directory matching that pattern.
+    </p>
+
+    <div class="aside-right">
+        <h4>Note:</h4>
+        <p>
+            By default, hidden files must be matched explicitly.
+        </p>
+    </div>
+
+    <p>
+        The meanings of these metacharacters are as follows:
+    </p>
+
+    <ul style="list-style-type: none;">
+        <li>
+            <code>*</code>&emsp; Asterisk.  Matches zero-or-more of any character.
+        </li>
+
+        <li>
+            <code>?</code>&emsp; Question Mark.  Matches zero-or-one of any character.
+        </li>
+
+        <li>
+            <code>[ ]</code>&emsp; Brackets.  Matches exactly one of any of the characters contained.
+        </li>
+    </ul>
+
+    <p>
+        All other characters are treated literally.
+        For example,
+    </p>
+
+    <div class="code">
+        $ file *
+    </div>
+
+    <p>
+        prints a description of each file in the current working directory,
+        while
+    </p>
+
+    <div class="code">
+        $ cp *.pdf ~/save_for_later/
+    </div>
+
+    <p>
+        copies all file ending in <code>.pdf</code> to the directory
+        <code>/home/josh/save_for_later</code>. and the command
+    </p>
+
+    <div class="code">
+        $ rm *.[gx]z
+    </div>
+
+    <p>
+        removes all files ending in either <code>.xz</code> or <code>.gz</code>.
+    </p>
+
+    <p>
+        After these steps have been completed, Bash removes unquoted
+        quotes, then inspects the line for pipes and
+        redirection operators.
+    </p>
+
+    <h3> See Also: </h3>
+    <ul>
+        <li><a href="https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters">Bash Reference Manual Section 3.4: Shell Parameters</a></li>
+        <li><a href="http://mywiki.wooledge.org/glob"> glob - Greg's Wiki </a></li>
+    </ul>
+</div>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://wiki.bash-hackers.org/syntax/redirection">Redirection - Bash Hackers Wiki</a></li>
+        <li><a href="https://www.gnu.org/software/bash/manual/html_node/Redirections.html"> Redirections - Bash Reference Manual</a></li>
+    </ul>
+</div>
+
+<div class="content" id="random-stuff">
+    <h2>Random Stuff</h2>
+
+    <h3>Copying and Pasting:</h3>
+
+    <p>
+        The desktop's familiar copy/paste is overruled when using terminal
+        emulators.
+        Use CTRL+SHIFT+c and CTRL+SHIFT-v instead.
+        Also, depending on the desktop environment, middle-clicking may 
+        copy and paste.
+    </p>
+
+    <h3>Tab Completion</h3>
+
+    <p>
+        Most shells support "tab completion":
+        If you've typed enough of a filename or command to
+        uniquely identify it, pressing <em>tab</em> will complete it for you.
+    </p>
+
+    <h3>End of File</h3>
+
+    <p>
+        The shell is connected to the terminal via open file connections,
+        and there exists a way to communicate <em>end of file</em> condition.
+        It is CTRL+D, and it's similar to a signal in the sense that it is
+        sent to the foreground process.
+    </p>
+
+    <h3>Manual Sections</h3>
+
+    <p>
+        When using <code>apropos</code>, you can restrict your search 
+        to a specific section with the <code>-s</code> switch:
+    </p>
+
+    <div class="code">
+        $ apropos -s 1
+    </div>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.cyberciti.biz/tips/displays-animations-when-accidentally-you-type-sl-instead-of-ls.html">Steam_Locomotive</a> - Linux/Unix Desktop Fun</li>
+    </ul>
+</div>
+
+<div id="man-pages" class="content">
+    <h2> The man Pages </h2>
+	<p>
+		The most useful asset in the Linux documentation pool is the
+		manual ("man") pages.
+		Man pages provide a concise overview of commands and
+        features, with further documentation existing elsewhere.
+		Learn to use them early, for they are a way of life.
+    </p>
+
+	<p>
+		Man pages are accessed at the command line:
+	</p>
+
+	<div class="code">
+		$ man cat
+	</div>
+
+	<p>
+		Within the <code>man</code> utility, you can search 
+		by typing a single forward slash, then your search term:
+	</p>
+
+	<div class="code">
+        /<i>search-term</i>
+	</div>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Don't worry about messing up: The interface is read-only.
+        </p>
+    </div>
+
+	<p>
+		Then, <em>enter</em>.  Jump to the next result by typing a single
+        <code>n</code>.
+		To quit, type <code>q</code>.
+	</p>
+
+	<p>
+        The other movement controls are simple enough:
+		To move up one line, type <code>k</code>.
+		To move down one line, use <code>j</code>.
+        To move down half a screenful, press <code>d</code>,
+        and to move up half a screenful, press <code>u</code>.
+	</p>
+
+    <p>
+        The manual is divided into eight sections. 
+        You can specify a specific section:
+    </p>
+
+    <div class="code">
+        $ man 1 intro
+    </div>
+
+	<h3>See Also:</h3>
+	<ul>
+        <li><a href="https://tldr.sh/"><code>tldr</code></a> - Simplified and community driven man pages</a></li>
+        <li><a href="https://www.bell-labs.com/usr/dmr/www/1stEdman.html">Unix Programmer's Manual, First Edition</a></li>
+	</ul>
+</div>
+
+<div class="content" id="finding-files">
+    <h2>Finding Files</h2>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Remember: <br>
+            <code>$ fd what where </code>
+        </p>
+    </div>
+
+    <p>
+        <code><a href="https://github.com/sharkdp/fd">fd</a></code>
+        is a simple, user-friendly alternative to GNU's
+        <a href="http://www.gnu.org/software/findutils/">find</a>.
+        Usage:
+    </p>
+
+    <div class="code">
+        $ fd [pattern] [path ...]
+    </div>
+
+    <p>
+        Where <em>pattern</em> is a regular expression, and
+        <em>path</em> is the directory you'd like to start looking in.
+        It searches there, and then it searches recursively downward through
+        the directory tree which started there.
+        For each file, it attempts to match its basename against <em>pattern.</em>
+        If the name matches, <code>fd</code> prints the name of the file.
+    </p>
+
+    <p>
+        Simple!
+    </p>
+
+    <p>
+        By default, <code>fd</code> checks filenames, but it can check many 
+        other file characteristics, as well.
+        For instance, to look for directories, we could use
+    </p>
+
+    <div class="aside-right">
+        <h4>Note:</h4>
+        <p>
+            On Debian, Ubuntu, or Mint, the <code>fd</code> 
+            package is named <code>fd-find</code>.
+        </p>
+    </div>
+
+    <div class="code">
+        $ fd --type d [pattern] [path ...]
+    </div>
+
+    <p>
+        Although it's nonstandard, I recommend <code>fd</code> 
+        for a few reasons:
+    </p>
+
+    <ol style="margin-left: 5%; padding-right: 10%;">
+        <li>
+            <p>
+                Only one utility to learn:
+                In practice, <code>fd</code> replaces both <code>find</code>
+                and <code>locate</code>.
+                Specifically, it's fast enough that there's no longer
+                a need for <em>locate</em>.
+            </p>
+        </li>
+        <li>
+            <p>
+                Ameniable defaults:
+                <code>fd</code> matches only basenames, and thereby 
+                avoids printing pages of results.
+                More, it does not require a flag to search for filenames.
+            </p>
+        </li>
+        <li>
+            <p>
+                Regex by default:
+                Regex is a more powerful and expressive string-matching language
+                than shell globbing, and it is agreeably implemented here via
+                Rust.
+            </p>
+        </li>
+        <li>
+            <p>
+                Simpler in construction:
+                No database to worry about.
+            </p>
+        </li>
+    </ol>
+
+    <h3>Searching Files with <code>rg</code></h3>
+    <p>
+        <a href="https://github.com/BurntSushi/ripgrep"><code>Ripgrep</code></a>
+        is another search tool.
+        It recursively descends through a directory tree,
+        opens each file, reads its contents and attempts to
+        match each line against a given regex pattern.
+        If a line contains a match, it prints the filename and those lines;
+        effectively, it searches text files for a particular pattern.
+	</p>
+
+	<p>
+        Its simplest usage is:
+    </p>
+
+    <div class="code">
+        $ rg <i>pattern</i> [path ...]
+    </div>
+
+    <p>
+        This, again, is a reimagining of a classic UNIX utility&mdash;
+        in this case, the venerable
+        <em><a href="https://en.wikipedia.org/wiki/Grep">grep</a></em>.
+        Like <code>fd</code>, it's mostly just easier to use.
+    </p>
+
+    <p>
+        Your primary documentation for regex is <a href="https://docs.rs/regex/1.4.3/regex/#syntax">here</a>. Trust me on this.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://docs.rs/regex/1.4.3/regex/#syntax">Regex - Rust</a></li>
+        <li><a href="https://www.youtube.com/watch?v=bgBWp9EIlMM&feature=emb_imp_woyt">Regular Expressions - Enough to be Dangerous</a> by EngineerMan (Youtube Video)</sup></li>
+    </ul>
+</div>
+
+<div class="content" id="make">
+    <h2><code>make</code></h2>
+
+    <p>
+        <code><a href="https://www.gnu.org/software/make/">make</a></code> 
+        is one of the oldest tools in the Unix
+        collection, and is used to simplify the software build process.
+        One creates a plain text file named <code>Makefile</code>, and
+        puts in it "recipes" of the form,
+    </p>
+
+    <pre>
+    hello: hello.c
+        gcc -o hello hello.c
+    </pre>
+
+    <p>
+        This says that <em>hello</em> is a target file
+        which depends upon the file <em>hello.c</em>,
+        and that to obtain <em>hello</em> from <em>hello.c</em>, 
+        the command <code>gcc -o hello hello.c</code> should be ran.
+    </p>
+
+    <p>
+        When one executes:
+    </p>
+
+    <div class="code">
+        $ make hello
+    </div>
+
+    <p>
+        the utility will read the makefile and create <em>hello</em>
+        if either it does not exist, or it does exist but
+        <em>hello.c</em> has been modified more recently.
+    </p>
+
+    <p>
+        This is a boon to developers because it allows them to 
+        edit source code files, then let a utility sort out what
+        compilation needs to be done&mdash; Not to mention, they
+        don't have to enter <code>gcc -o hello hello.c</code>!
+    </p>
+
+    <p>
+        Make is a classic Unix utility, and it is general in the 
+        sense that the files in question need not be source/binary.
+        Suffice it to say, an introduction to Unix would not be 
+        complete without mentioning <em>make</em>.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.gnu.org/software/make/">Make - GNU Project - Free Software Foundation</a></li>
+        <li><a href="https://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-11.html#ss11.5">Useful Commands</a> From BASH Programming - Introduction HOW-TO (TLDP) </li>
+        <li><a href="https://nostarch.com/howlinuxworks3">How Linux Works: What Every Superuser Should Know</a> by Brian Ward</a></li>
+    </ul>
+</div>
+
+
+<div class="content" id="shell-haters">
+	<h2 style="margin-bottom: 2pt;">The Shell Hater's Handbook</h2>
+	<h4 style="margin-bottom: 18pt;">by Ryan Tomayko<h4>
+    <iframe class="video" src="https://www.youtube.com/embed/olH-9b3VJfs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <!--
+        <h3>Exercises</h3>
+        <ol>
+            <li>
+        Section 7 of the man pages contains many interesting articles.  
+        Using apropos, generate an index of it. 
+        Why can't an index be distributed?
+            </li>
+        </ol>
+    -->
+
+
+</div>
+
+

@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/img/200px-Tux.svg.png">
+
+    
+        <title> How Open Source Works : Learning Linux </title>
+    
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+    <script src="./assets/js/animate-nav-2.js"> </script>
+</head>
+<body>
+
+    
+
+<div id="nav_bar_1" class="nav">
+    <ul>
+        
+        <li><a href="./"><b style="line-height: 1;">Learning Linux</b></a></li>
+        
+        <li><a href="./intro-to-gnu-linux.html">Introduction to GNU/Linux</a></li>
+        
+        <li><a href="./files.html">Files</a></li>
+        
+        <li><a href="./processes.html">Processes</a></li>
+        
+        <li><a href="./terminals-and-shells.html">Terminals and Shells</a></li>
+        
+        <li><a href="./packages.html">Packages</a></li>
+        
+        <li><a href="./how-open-source-works.html" class="active">How Open-Source Works</a></li>
+        
+    </ul>
+</div>
+
+
+    <!--
+
+    <blockquote>
+        "What is the purpose of an open-source project/community?
+        Collaborate together as a group to maintain the project
+        and honestly to also have fun.  [...]
+        We want to keep the project going for various reasons,
+        but you want to enjoy yourself while you do it. 
+    </blockquote>
+
+    <p>
+        Especially about popular projects, 
+        leadership can become a matter of curating modifications.
+        Very large projects, like the Linux kernel or the Firefox
+        web browser, have been broken down into subsystems, 
+        with each subsystem having maintainer(s) of their own.
+        The result is a tree, with user-born 
+        modifications passing first through the appropriate subsystem 
+        maintainer before being proposed to the project's 
+        overarching maintainer.
+    </p>
+
+     
+
+    - People suck
+    - An engineering challenge
+
+    - Not only is open-source software intrinsically motivated, 
+      it is also transparent in an absolute sense
+    - An elegant solution
+
+    - Moment of altruism
+    - In practice, this is a "giving back" to the community
+
+    <blockquote>
+        "We as people come together; we have some communal interest.
+        As such, we build a structure together that allows us to work
+        together, allows us to communicate, allows us to bring in new people,
+        and build software together.
+        This is definitely not the fastest way to build software, but
+        it's a remarkably sustainable way."<sup><a href="#references">[1]</a></sup>
+    </blockquote>
+-->
+
+<div id="nav_bar_2" class="nav">
+    <ul>
+        <li><a href="#introduction">Introduction </a></li>
+        <li><a href="#intrinsic-value">Intrinsic Value</a></li>
+        <li><a href="#anatomy">Anatomy of a Project</a></li>
+        <li><a href="#what-is">What is GNU/Linux?</a></li>
+        <li><a href="#less"><code style="line-height: 1;">less</code>: A Success Story</a></li>
+        <li><a href="#closing-remarks">Closing Remarks</a></li>
+        <li><a href="#cannon">Brett Cannon</a></li>
+        <li><a href="#references"> References </a></li>
+    </ul>
+</div>
+
+<div id="introduction" class="content">
+    <h1>How Open Source Works</h1>
+
+    <div class="quote-text">
+        "This is a system by us, for us,<br>based on the things we like."
+    </div>
+
+    <div class="quote-ref">
+        Andreas Kling and Linus Groh<br>
+        <a href="https://www.serenityos.org/">SerenityOS</a>
+    </div>
+
+    <p>
+        So what makes it all tick?
+        In this exciting conclusion, we'll pick apart the
+        key components of the open-source ecosystem,
+        from the motivations of contributors to the leadership
+        style necessarily implied by them.
+    </p>
+</div>
+
+<div class="content" id="intrinsic-value">
+    <h2>Intrinsic Value</h2>
+
+    <p>
+        Compared to the market economy we all know and love, 
+        open source is a strange beast:
+        Its works are created because what they 
+        are <em>is</em> what their creators want.
+        Stated another way, the intent of free software is 
+        the software itself.
+    </p>
+
+    <p>
+        Such goods, produced for their own sake, are said
+        to be <em>intrinsically motivated,</em> and 
+        this, in turn, underpins open source.
+        Intrinsic motivation is found in many places, 
+        such as academic research and art on public display.
+        It's the reason you take out the trash, go to the gym, or plant flowers.
+    </p>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Stated more plainly, we are not in the business of 
+            pleasing other people. 
+            We are in the <em>"I have an itch and I'm gonna scratch 
+            it,"</em> business.
+        </p>
+    </div>
+
+    <p>
+        It's easy to mistake contribution for altruism, but that would be,
+        well, a mistake.
+        Rather, the existence of a bug or the absence of a feature
+        motivates a modification, which then works its way into the
+        project.
+        These modifications accrue, and projects evolve to become
+        whole and polished. 
+    </p>
+
+    <p>
+        Projects can attract commercial interests, as well. 
+        <a href="https://lwn.net/Articles/824855/">Facebook taking part</a> 
+        in the development of Linux's new
+        <code><a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a></code> 
+        is one such example.
+        But note that, in this case, as in most other cases, 
+        the principal interest is in the software <em>per se:</em>
+        It is developed to be used, not to be sold, and is therefore
+        developed for its intrinsic value.
+    </p>
+
+    <p>
+        If intrinsic value were indeed the principle motivating force
+        of the open-source ecosystem, 
+        it would follow that those projects with
+        the greatest number of use-cases garner the greatest support.
+        In support of this, note that the largest free-software organization to date
+        is neither GNU nor Linux, but the 
+        <a href="https://www.apache.org/">Apache Foundation</a>, 
+        whose projects underpin the world wide web.<sup><a href="https://www.apache.org/">[a]</a></sup>
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="ihttps://www.zdnet.com/article/spacex-weve-launched-32000-linux-computers-into-space-for-starlink-internet/">SpaceX: We've launched 32,000 Linux computers into space for Starlink Internet | ZDNet</a></li>
+        <li><a href="https://awesomekling.github.io/I-quit-my-job-to-focus-on-SerenityOS-full-time/">I quit my job to focus on SerenityOS full time</a> - Andreas Kling - I like computers! </li>
+    </ul>
+</div>
+
+<div class="content" id="anatomy">
+    <h2>Anatomy of a Project</h2>
+
+    <div class=aside-right>
+        <h4>Aside</h4>
+        <p>
+            Maintainers can decline a proposed modification for any 
+            reason whatsoever. 
+        </p>
+    </div>
+
+    <p>
+        Open-source projects are typically organized around
+        a small group of core developers, called maintainers.
+        Maintainers have the ability to modify the work however
+        they want, and accept user-born modifications as they see fit.
+        Maintainers offer new versions as they become mature, and
+        in so doing present the work to the world.
+    </p>
+
+    <p>
+        Maintainers work diligently over years to present a
+        polished product, and have earned the trust of the community;
+        they are the most important people of open-source.
+        An open source software project without a maintainer 
+        has effectively been abandoned&mdash;
+        or it is looking for a maintainer :) .
+    </p>
+
+    <p>
+        Although open-source canon states that every user is a 
+        potential developer, in practice the majority of development 
+        is thanks to a relatively small group of people.
+        With a common, shared goal&mdash; the project itself&mdash; the 
+        contributors to a project form a community. 
+    </p>
+
+    <p>
+        The components constituting a modern GNU/Linux system 
+        were not created overnight, 
+        but rather through elaboration and refinement over time.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.contributor-covenant.org/">Contributors' Covenant</a>: A Code of Conduct for Open Source and other Digital Commons Communities</li>
+        <li><a href="https://youtu.be/JUt2nb0mgwg">Trillions and Trillions Served</a> by The Apache Software Foundation</a></li>
+    </ul>
+</div>
+
+<div class="content" id="what-is">
+    <h2 style="margin-bottom: 0">What is GNU/Linux?</h2>
+    <h4>A collection of projects</h4>
+
+    <p>
+        A GNU/Linux system can be likened to a 500-piece puzzle with 2500 
+        available pieces:
+        For any piece of the puzzle&mdash; shell, desktop environment,
+        web browser, right down to
+        <a href="https://en.wikipedia.org/wiki/C_standard_library#Implementations">C libraries</a> and
+        <a href="https://wiki.archlinux.org/title/kernel">kernels</a>&mdash;
+        there are around five competent options to choose from.
+        Once the components are chosen, 
+        a whole and complete operating system is manifest.
+    </p>
+
+    <p>
+        The operating systems built from these parts have a few
+        characteristics in common:
+    </p>
+
+    <ol>
+        <li>Based around some variant of the Linux kernel; and, </li>
+        <li>Utilizing GNU core utilities</li>
+    </ol>
+
+    <p>
+                One of the remarkable things about GNU/Linux is that no one person
+        is responsible for the production of an entire operating system.
+        Rather, GNU/Linux exists as a collection of loosely associated projects,
+        and collecting and assembling the pieces <em>is a project of
+        its own,</em> distinct from any other project.
+    </p>
+
+    <div class="aside-right">
+        <h4>Aside:</h4>
+        <p>
+            Technically, GNU/Linux is a <em>class</em> of operating system.
+        </p>
+    </div>
+
+    <p>
+        The modularity that exists through the "package" concept
+        was neither planned nor intentional, but emerged
+        as GNU/Linux matured into a fully capable platform.
+    </p>
+
+    <p>
+        The package, and in turn, the project, has become
+        a central organizing feature of GNU/Linux.
+        Many smallish projects allow users to shape their system 
+        to their needs, contributors to promote modifications to a given part, 
+        and developers to reasonably introduce a new 
+        component, as they desire.
+    </p>
+
+    <p>
+        This "Many small projects" motif is unique to GNU/Linux*,
+        and potentially responsible for its preeminence within open-source
+        operating systems.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://futurism.com/the-byte/spacex-nasa-astronauts-linux">SpaceX Sent NASA Astronauts into Orbit Using Linux</a></li>
+    </ul>
+</div>
+
+<div class="content" id="less">
+    <h2 style="margin-bottom: 0;"><code>less</code>:</h2>
+    <h4>A Success Story</h4>
+
+    <div class="aside-left">
+        <h4>Aside</h4>
+        <p>
+            If necessity is the mother of invention,
+            then competition is the father of progress.
+        </p>
+    </div>
+
+    <p>
+        A paging utility is a program that displays a file on 
+        a terminal one screenful at a time.
+        The first widely used paging utility was <code>more</code>, written by
+        Dan Halbert as a graduate student at UC Berkeley in 1978.<sup><a href="https://danhalbert.org/more.html">[3]</a></sup>
+        <code>more</code> is a simple program: It first 
+        fills up the screen, then waits for user input to print the 
+        next line(s).
+    </p>
+
+    <p>
+        In 1983, Mark Nudelman was a software developer working for a
+        company called Integrated Office Systems. From the <a href="http://www.greenwoodsoftware.com/less/faq.html#history"><code>less</code> FAQ</a>:
+    </p>
+
+    <blockquote>
+        Some of our software ran on a Unix system and produced enormous log files
+        of its transactions. We wanted to be able to search these log files for
+        error messages. But the version of "vi" we were using couldn't handle
+        files larger than a certain size, and our log files often exceeded that
+        size. So we were forced to use "more" to view the files. The problem was,
+        once we found an error message, what we really wanted to see was the
+        transactions leading up to the error; that is, the lines in the log file
+        immediately before the error message. But more didn't allow backward
+        movement in the file.
+    </blockquote>
+
+    <blockquote>
+        We often complained about this problem. We said we needed a "backwards
+        more"; someone (it wasn't me, but unfortunately I don't remember who
+        it was) coined the name "less" as a joke on the concept of a "backwards
+        more". It didn't seem to me that it would be too difficult to write a
+        simple pager that would allow forward and backward movement.
+        I wrote the first version in late 1983 and we began using it internally.
+        I continued to enhance it and finally decided it was a useful enough
+        tool that I should make it available to the world. I posted the first
+        version to the newsgroup called (at that time) net.sources in May, 1985.
+    </blockquote>
+
+    <blockquote>
+        Making the program publicly available allowed an enormous number of
+        people to use it. Many people have made their own modifications and
+        donated them to me for incorporation into the official version, and
+        many more have reported bugs they've found or made suggestions about
+        features they'd like to see added. This was my first experience with
+        the concept of what is now called "open source" or "free software",
+        and it has, I believe, produced a very high quality product. I'd like
+        to thank all the users of less for their invaluable comments and
+        suggestions over the years. 
+        Less wouldn't be what it is today without you.
+    </blockquote>
+
+    <p>
+        Mark Nudelman continues to maintain <code>less</code> today.  
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://www.pcmag.com/news/linux-is-now-on-mars-thanks-to-nasas-perseverance-rover">Linux is Now on Mars, Thanks to NASA's Perseverance Rover | PCMag</a></li>
+    </ul>
+</div>
+
+<div class="content" id="cannon">
+    <h2 style="margin-bottom: 2pt;">Brett Cannon</h2>
+    <h4 style="margin-bottom: 18pt;">Setting Expectations in Open Source</h4>
+
+<iframe class="video" src="https://www.youtube.com/embed/tzFWz5fiVKU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</div>
+
+
+
+
+
+<div class="content" id="closing-remarks">
+    <h2 style="margin-bottom: 0;">Closing Remarks:</h2>
+    <h4>Do One Thing</h4>
+
+    <p>
+        The golden rule of open source is that those who do the work get to make the decisions.
+        As a user, you are free to copy, imitate, remix, transform, debug or rebuild anything in the open-source realm.
+        You are also free to create anything your heart desires;
+        GNU/Linux is a wonderful platform to support your work.
+    </p>
+
+    <p>
+        Open collaboration is not restricted to software;
+        probably the most ubiquitous example of mass collaboration
+        is Wikipedia, the free encyclopedia.
+        Another example is the 3D Printing / Maker community,
+        which has produced an ecosystem analogous to open-source.
+    </p>
+
+    <p>
+        Within open-source, though, those projects that have become 
+        commonplace are maintained by individuals with relatively narrow foci.  
+        Be it a kernel, a paging utility or the next 
+        <code>grep</code> replacement, the trick to mainstream adoptation
+        is to do one thing and to do it well.
+    </p>
+
+    <p>
+        Speaking from experience, the gap between something that works
+        and a polished, finished, final product is large, 
+        and can take years to span.
+        To span that gap, it helps if your project is deeply motivating to you&mdash;
+        that is to say, it, in itself, is something that you want.
+    </p>
+
+    <h3>See Also:</h3>
+    <ul>
+        <li><a href="https://hackaday.com/2021/07/17/open-source-is-choice/">Open Source is Choice</a> by Elliot Williams</li>
+        <li><a href="https://www.unixsheikh.com/articles/my-70-year-old-mother-has-been-using-linux-on-the-desktop-for-the-past-21-years.html">My 70 year old mother has been using Linux on the desktop for the past 21 years</a></li>
+    </ul>
+</div>
+
+
+
+<div id="references" class="content">
+    <h2> References </h2>
+    <ol>
+        <li>Dunning, Ted. ASF Member and former ASF Board Member.</li>
+        <li>Eghbal, N. (2020). <em>Working in public: The making and maintenance of open source software.</em> Stripe Press. </li>
+        <li>Halbert, D. (n.d.). The early history of the more command. The Early History of the "more" Command. Retrieved October 21, 2021, from <a href="https://danhalbert.org/more.html">https://danhalbert.org/more.html</a>. </li>
+    </ol>
+
+    <p>
+        *: Is unique to GNU/Linux <em>within open-source operating systems.</em>
+        The Apache Software Foundation is also organized as many-small-projects
+        (and also has been enormously successful).
+    </p>
+</div>
+
+
+    <div class="content" id="footer">
+    <center>
+        Questions, comments, concerns? Send all inquiries to
+        <a href="mailto:josh.591536@gmail.com"> Josh Timmons</a>.
+        <br>This page was last updated December 2021.
+    </center>
+    <br>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/img/200px-Tux.svg.png">
+
+    {% if page.home %}
+        <title> {{ page.title }} </title>
+    {% else %}
+        <title> {{ page.title }} : Learning Linux </title>
+    {% endif %}
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+    <script src="./assets/js/animate-nav-2.js"> </script>
+</head>
+<body>
+
+    {% include nav-bar-1.html %}
+
+    {{ content }}
+
+    {% include footer.html %}
+</body>
+</html>

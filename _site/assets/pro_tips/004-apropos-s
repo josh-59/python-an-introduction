@@ -1,0 +1,28 @@
+<div id="pro-tip" style="width: 70%;">
+        <br>
+        Find man pages by section:
+
+        <p>
+        <code>
+            apropos -s 3 printf
+        </code>
+        </p>
+
+        <p>
+            Apropos will restrict its search to
+			<a href="https://unix.stackexchange.com/questions/3586/what-do-the-numbers-in-a-man-page-mean">the manual section</a>
+			given.
+        </p>
+
+        Option Summary:
+        <ul style="list-style: none; margin: 0; padding: 0">
+            <li><code><b>-s</b> <u>list</u>, <b>--sections</b> <u>list</u>, <b>--section</b> <u>list</u></code>
+				<br>
+				Search only the given manual sections.  <br>
+				<u>list</u> is a colon- or comma-separated list of sections.
+			  </li>
+        </ul>
+        <br>
+		Source: <a href="http://man7.org/linux/man-pages/man1/apropos.1.html"><code>apropos(1)</code></a>
+		<br><br>
+    </div>

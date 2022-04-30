@@ -1,0 +1,10 @@
+{% comment %} This is the leftmost navigation bar on each page.
+It is not animated. {% endcomment %}
+
+<div id="nav_bar_1" class="nav">
+    <ul>
+        {% for item in site.data.navigation %}
+        <li><a href=".{{item.link}}"{% if item.link == page.url %} class="active"{% endif %}>{{item.name}}</a></li>
+        {% endfor %}
+    </ul>
+</div>

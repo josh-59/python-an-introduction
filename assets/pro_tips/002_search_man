@@ -1,0 +1,15 @@
+<div class="content">
+    <h1> Pro Tip</h1>
+    <div id="pro-tip" style="background-color: #f1f1f1;">
+        <br>
+        Search a man page <br>
+        with forward-slash:
+        <div class="code" style="text-align: center; padding-left: 0">
+            /&lt;search-term&gt;
+        </div>
+        Jump to the next match with
+        <div class="code" style="text-align: center; padding-left: 0">
+            n
+        </div>
+    </div>
+</div>

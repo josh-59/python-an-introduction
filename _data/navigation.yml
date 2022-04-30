@@ -1,0 +1,14 @@
+- name: "<b style=\"line-height: 1;\">Learning Linux</b>"
+  link: /
+- name: Introduction to GNU/Linux
+  link: /intro-to-gnu-linux.html
+- name: Files
+  link: /files.html
+- name: Processes
+  link: /processes.html
+- name: Terminals and Shells
+  link: /terminals-and-shells.html
+- name: Packages 
+  link: /packages.html
+- name: How Open-Source Works
+  link: /how-open-source-works.html
