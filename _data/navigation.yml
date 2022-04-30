@@ -1,7 +1,7 @@
-- name: "<b style=\"line-height: 1;\">Learning Linux</b>"
+- name: "<b style=\"line-height: 1;\">Python</b>"
   link: /
-- name: Introduction to GNU/Linux
-  link: /intro-to-gnu-linux.html
+- name: Introduction 
+  link: /introduction.html
 - name: Files
   link: /files.html
 - name: Processes
