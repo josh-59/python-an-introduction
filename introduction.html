@@ -6,25 +6,21 @@ last-updated: April, 2022
 
 <!--
 
-Python is a general-purpose, interpretted programming language.
-Python is not a small language;
-    the ecosystem surrounding its success can, itself, be a hurdle for the 
-    new user.
+    <p>
+        The program calls the <code>print()</code> function, passing it
+        a single argument, the string <code>"Hello World!"</code>.
+        Function calls are denoted by the use of trailing parenthesis,
+        <code>( )</code>. 
+    </p>
 
 -->
-
 
 <div id="nav_bar_2" class="nav">
     <ul>
         <li><a href="#introduction"> Introduction </a></li>
-        <li><a href="#history"> History: Time Sharing </a></li>
-        <li><a href="#unix">Unix</a></li>
-        <li><a href="#unix-architecture"> The UNIX Architecture </a></li>
-        <li><a href="#gnu">GNU's Not Unix</a></li>
-        <li><a href="#linux"> The Linux Kernel </a></li>
-        <li><a href="#distributions"> Linux Distributions: Early History</a></li>
-        <li><a href="#mint"> Linux Mint </a></li>
-        <li><a href="#greg-kroah-hartman">Greg Kroah-Hartman </a></li>
+        <li><a href="#getting-ready">Getting Ready</a></li>
+        <li><a href="#hello-world">Hello World</a></li>
+        <li><a href="#history">History</a></li>
         <li><a href="#references"> References </a></li>
     </ul>
 </div>
@@ -32,365 +28,192 @@ Python is not a small language;
 <div id="introduction" class="content">
     <h1>Introduction</h1>
 
-    <p>
+    <div class="quote-text">
+        "The only way to learn a new programming language<br>
+        is by writing programs in it."
+    </div>
 
-
-    </p>
-</div>
-
-
-<div class="content" id="history">
-    <h2 style="margin-bottom: 0;">History:</h2>
-    <h4>Time Sharing</h4>
-
-    <p>
-        To understand Unix and the origins of GNU/Linux, we have
-        to step back in time, to the 1960's, when the computer industry
-        was just beginning.
-        Computers then were immense&mdash;
-        and largely uncontrolled&mdash; machines, either
-        processing instructions from punched cards in
-        discrete sessions called <em><a href="https://en.wikipedia.org/wiki/Batch_processing">batches</a>,</em>
-        or supporting some lucky user for an interactive session.<sup><a href="https://multicians.org/project-mac.html">[1]</a></sup>
-    </p>
-
-    <p>
-        Next-generation computers were interactive,
-        their use being, "...indescribably more pleasant and productive 
-        than batch processing."<sup><a href="#references" title="Kernighan p. 31">[2]</a></sup>
-        In 1960, an operating system was devised to "steal" time 
-        from batch jobs on behalf of interactive users, and thereby
-        support both interactive and batch computing simultaneously.<sup><a href="https://multicians.org/project-mac.html">[1]</a></sup>
-        In 1961, a purely time-sharing operating system&mdash;
-        which could support four users simultaneously&mdash;
-        was demonstrated.<sup><a href="https://multicians.org/project-mac.html">[1]</a></sup>
-    </p>
-
-    <p>
-        Computing's commercial future was widely believed
-        to be in offering an <em><a href="https://en.wikipedia.org/wiki/Utility_computing">information utility</a>:</em>
-        In a business model similar to telephone or electricity,
-        customers would connect their keyboards and monitors to a 
-        central mainframe, then pay for computation on an as-used 
-        basis.<sup><a href="http://www.tnellen.com/cybereng/ebooks/greenbf.htm">[3]</a></sup>
-        Such "dial-up timesharing" presented a number of technical challenges,
-        chief among them,
-    </p>
-
-    <ol>
-        <li>Creating the necessary infrastructure to distribute the service</li>
-        <li>The procurement of capable computer hardware</li>
-        <li>Allotting useful and controlled computation to individual customers</li>
-    </ol>
-
-    <p>
-        AT&amp;T, which dominated the country's telephone system,
-        was uniquely positioned to address the first; 
-        General Electric was willing to produce the necessary hardware;
-        and,
-        MULTICS, an operating system project that began in 1965, 
-        intended to solve the third.
-    </p>
-
-    <h3>Multics</h3>
-
-    <p>
-        The MULTICS project was born at MIT, and its development was 
-        supplemented by GE and AT&amp;T.<sup><a href="https://multicians.org/history.html">[4]</a></sup>
-        To address the challenges at hand, a number of 
-        <a href="https://multicians.org/features.html">novel features</a> 
-        were introduced, many of which
-        would become standard in computing.
-    </p>
-
-    <div class="img-center">
-        <a href="http://bitsavers.org/pdf/ge/GE-645/LSB0468_GE-645_System_Manual_Jan1968.pdf" title="Photo credit: General Electric Information Systems Equipment Division, 1968">
-            <img src="assets/img/GE-645.png">
-        </a>
-        <center>The Envisioned Hardware<center>
+    <div class="quote-ref">
+        Brian W. Kernighan <br>
+        Dennis M. Ritchie </br>
+        <em>The C Programming Language</em>
     </div>
 
     <p>
-        To support the controlled execution of customers' software, 
-        for example,
-        it relied on the <em>process,</em> a virtualised environment
-        within which software could safely be 
-        executed.<sup><a href="https://multicians.org/exec-env.html">[5]</a></sup>  
-        To support multiple users, multiple processes
-        were supported simultaneously.<sup><a href="https://multicians.org/exec-env.html">[6]</a></sup>
-        To manage these, a "supervisor" program was introduced.
+        Recall that a program is a file that a computer executes.
+        To write a program, then, is to create a file that contains
+        instructions for the computer to execute.
+        Python being an interpretted language, the programs you will
+        be writing will be plain text.
+        That is, they will be readable by you, as well as executable by 
+        the computer.
+        It is the role of the Python interpretter to take these files,
+        interpret them and carry out their instructions.
     </p>
-
-    <p>
-        To implement these ideas, Multics was 
-        written in a high-level programming language, <em>PL/I.</em><sup><a href="https://multicians.org/features.html">[6]</a><a href="https://multicians.org/pl1.html">[7]</a></sup>
-        Even by today's standards, PL/I was sophisticated:
-        In order to future-proof the work, it was entirely
-        platform-independent&mdash; it did not deal in what we would call 
-        "primitives."<sup><a href="https://multicians.org/fjcc1.html">[8]</a></sup>
-        As the project got underway, obtaining a compiler for
-        it became a significant challenge, so much so that a lesser 
-        dialect was first devised and implemented.<sup><a href="https://multicians.org/pl1.html">[7]</a></sup>
-    </p>
-
-    <p>
-        Although Multics was working by 1968, 
-        it could only support a small team of developers,
-        and as it became increasingly clear that the project would 
-        not deliver on its promise of supporting a
-        profitable information utility,
-        AT&amp;T withdrew.<sup><a href="#references" title="Kernighan p 32">[2]</a></sup>
-        Multics soldiered on:
-        1970 saw its first installation, which could support 
-        35 simultaneous users. 
-        One of its later installations (General Motors) could support 
-        200.<sup><a href="http://web.mit.edu/Saltzer/www/multics.html">[9]</a></sup>
-    </p>
-
-    <h3>See Also:</h3>
-    <ul>
-        <li><a href="https://multicians.org/fjcc3.html">The Structure of the Multics Supervisor</a> by V. A. Vyssotsky, F. J. Corbató, and R. M. Graham </li>
-    </ul>
 </div>
 
-<div id="unix" class="content">
-    <h2>Unix</h2>
+<div id="getting-ready" class="content">
+    <h2>Getting Ready</h2>
 
-    <div class="aside-left">
+    <div class=aside-right>
+        <h4>Aside:</h4>
+
+        <p>
+            Python program files end in <code>.py</code>
+        </p>
+    </div>
+
+    <p>
+        The latest major version of Python is Python 3, and that
+        is what we will be covering.
+        If you'd like to try it without installing anything,
+        check out <a href='https://www.online-python.com/'>Online Python</a>.
+    </p>
+
+    <p>
+        To install Python in a Windows environment, the 
+        <a href="https://docs.microsoft.com/en-us/windows/python/beginners">
+        recommended route</a> is to go through the Microsoft Store.
+        If you are installing Python on your machine, a proper text editor
+        (like Microsoft's <a href="https://code.visualstudio.com/">Visual Studio Code</a>) is also recommended.  
+    </p>
+
+    <p>
+        In a Linux environment, Python 3 should be already be installed.
+        You can verify with
+    </p>
+
+    <code>
+        $ python3 --version
+    </code>
+
+    <h3>Hello World</h3>
+
+    <div class=aside-right>
         <h4>Aside:</h4>
         <p>
-            Bell Laboratories was AT&amp;T's research arm. 
+            Microsoft Word <em>is not</em> a text editor, and cannot be used
+            for programming.
         </p>
     </div>
 
 
     <p>
-        In the wake of AT&amp;T's withdrawal from Multics, 
-        operating systems researchers working at Bell Labs
-        found themselves without a clear project.<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
-        Still reeling from the disaster of Multics, management
-        refused to purchase any new computer equipment.
-        For the researchers of Bell Labs, this period was 
-        frustrating: Their proposals,
-        "...were never clearly and finally turned down, but yet were certainly never accepted."<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+        Since the 1970's, the first program in any language has been very 
+        simple: Print the message <em>Hello World!</em>.
+        In Python, the program looks like this:
     </p>
 
+    <div class="program">
+        <code>
+            print("Hello World!")
+        </code>
+
+        <div class="program-name">
+            hello.py
+        </div>
+    </div>
+ 
     <p>
-        After finding a disused <a href="https://www.soemtron.org/pdp7.html">PDP-7</a>,
-        Ken Thompson and Dennis Ritchie decided to rewrite
-        <em><a href="https://en.wikipedia.org/wiki/Space_Travel_(video_game)">Space Travel</a></em> 
-        for it.<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
-        Afterwards, Ken Thompson continued to work with the machine, 
-        implementing a filesystem that he, Dennis Ritchie and 
-        Rudd Canaday had devised on
-        paper.<sup><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
+        This program is your first major hurtle,
+        because in order to be successful, an entire development environment
+        must be in place.
+        If you're having trouble, contact a friend&mdash; or get on the forums!
     </p>
 
-    <p>
-        In mid-1969, Thompson realized that he was close to
-        an operating system:  All he needed was an
-        assembler, a text editor, a shell and a system call to
-        launch programs.<sup><a href="#references" title="Kernighan, p34">[2]</a><a href="http://www.read.seas.harvard.edu/~kohler/class/aosref/ritchie84evolution.pdf">[10]</a></sup>
-        The system call was "trivial", and the other three 
-        components were done in one week 
-        each.<sup><a href="#references" title="Kernighan, p34">[2]</a></sup>
-    </p>
+    <em>Exercises</em>
 
-    <p>
-        By late 1969, the software was self-supporting, and 
-        was quickly developed into a multi-user, time-sharing operating
-        system, called <em>Unix.</em>
-        Whereas Multics required specialized mainframe
-        hardware, Unix made use of an emerging line of minicomputers.
-        Whereas Multics was large, and offered many ways to
-        handle a given task, Unix was simple, and usually offered one.
-    </p>
-    <p>
-        About his colleague's early work, Dennis Ritchie would later write,
-    </p>
-
-    <blockquote>
-        "Thompson wanted to create a comfortable computing environment
-        constructed according to his own design, using whatever means were
-        available. His plans, it is evident in retrospect, incorporated many
-        of the innovative aspects of Multics, including an explicit notion of
-        a process as a locus of control, a tree-structured file system, a
-        command interpreter as user-level program, simple representation of
-        text files, and generalized access to devices."<sup><a href="https://www.bell-labs.com/usr/dmr/www/chist.html">[11]</a></sup>
-    </blockquote>
-
-    <p>
-        By offering text processing services for the
-        purposes of patent applications within the laboratory,
-        the team acquired a new PDP-11.<sup><a href="#references" title="Kernighan">[2]</a></sup>
-        They supported a sequence of versions of the software and
-        an accompanying online manual, while they themselves worked on 
-        "Research Unix."<sup><a href="#references" title="Kernighan">[2]</a></sup> 
-        By 1974, there were over fifty
-        installations, with "...many more expected."<sup><a href="https://www.tuhs.org/Archive/Distributions/Research/Dennis_v5/v5man.pdf">[12]</a></sup>
-        The first fork, <em>BSD,</em> was produced at the
-        University of California, Berkeley, in 1977.<sup><a href="https://forums.freebsd.org/threads/history-of-freebsd-part-1-unix-and-bsd.77407/">[13]</a></sup>
-    </p>
-
+    <ol>
+        <li>Get <em>hello.py</em> running on your machine.</li>
+        <li>Experiment with leaving parts of the program out.  What kind of errors do you get?</li>
+    </ol>
 
     <h3>See Also:</h3>
     <ul>
-        <li><a href="https://en.wikipedia.org/wiki/Ken_Thompson">Ken Thompson</a> - Wikipedia</li>
-        <li><a href="https://www.cs.princeton.edu/~bwk/">UNIX: A History and Memoir</a> by Brian Kernighan</a></li>
+        <li><a href="https://docs.microsoft.com/en-us/windows/python/beginners">Python on Windows for Beginners</a></li>
+        <li><a href="https://code.visualstudio.com/docs/python/python-tutorial#_create-a-python-hello-world-source-code-file">Create a Python Hello World source code file</a></li>
+        <li><a href="https://www.python.org/community/forums/"> Forums | Python.org</a></li>
     </ul>
 </div>
 
-<div id="unix-architecture" class="content">
-    <h2>The Unix Architecture</h2>
-    <p>
-        Unix had a simple, clear, well-documented architecture that
-        inspired <a href="https://en.wikipedia.org/wiki/Category:Unix_variants">many</a> operating systems.
-        It is organized as a hierarchy of layers,
-        with each layer building upon the ones beneath it, and supporting
-        those above it:
-    </p>
-
-    <img src="assets/img/linux-architecture.png" style="height: 400px;">
+<div class="content" id="variables">
+    <h2>Variables</h2>
 
     <p>
-        <strong>Hardware:</strong>
-        The core of any computer is its hardware.
-        Each piece of hardware has a software interface defined by the
-        engineers that created it; these interfaces are varied at best.
+        A <em>variable</em> is a name for an object.  
+        To declare a variable is to introduce it into the source file; 
+        to bind a variable is to set it to refer to some object.
+        In Python, variables are declared and bound in a single step, 
+        with the <code>=</code> operator.
+        To create a variable named <code>msg</code> referring to the string 
+        <code>"Hello World!"</code>, for example, we would do,
     </p>
+
+    <code>
+        msg = "Hello World!"
+    </code>
 
     <p>
-        <strong>Drivers:</strong>
-        Drivers interact with hardware, and simplify its 
-        interface for the kernel.
-        Drivers are the deepest and most remote elements
-        of operating systems, and are constantly being introduced
-        as new hardware becomes available.
+        Thus, our second program will carry out the same task as <em>hello.py</em>,
+        but incorporates a variable to do so:
     </p>
 
-    <p>
-        <strong>Kernel:</strong>
-        The heart of the Unix operating system is its 
-        <a href="http://linffo.org/kernel.html">kernel</a>.
-        The kernel is responsible for
-        scheduling the CPU, allotting memory, 
-        maintaining file integrity, and many other tasks.
-        It is an involved piece of software&mdash;
-        effectively, the "brains" of the operation.
-    </p>
+    <div class="program">
+        <code>
+            msg = "Hello World!"<br>
+            print(msg)
+        </code>
 
-    <p>
-        <strong>System Calls:</strong>
-        The set of operations that an operating system is willing 
-        to undertake is defined by the system calls it supports.
-        The Unix architecture is characterized by six essential system 
-        calls:<sup><a href="#references">[14]</a></sup>
-        <em>fork()</em>, <em>exec()</em>, <em>open()</em>, 
-        <em>close()</em>, <em>read()</em>, and
-        <em>write()</em>.
-        Both <em>fork()</em> and <em>exec()</em> are concerned with 
-        launching programs, while the other four deal with files. 
-    </p>
-
-    <p>
-        <strong>Processes:</strong>
-        A <em>process</em> is an executing program.
-        Within the Unix family of operating systems, 
-        processes run the show:
-        The kernel depends entirely on processes to tell it 
-        what to do, and takes no action without explicit instruction by a process.
-    </p>
-
-    <h3>See Also:</h3>
-    <ul>
-        <li><a href="http://www.linfo.org/kernel.html">Kernel Definition</a> by The Linux Information Project (LINFO)</a></li>
-    </ul>
-</div>
-
-<div class="content" id="gnu">
-    <h2>GNU's Not Unix</h2>
-
-    <div class="img-right">
-        <a title="Ruben Rodriguez, CC BY 4.0 &lt;https://creativecommons.org/licenses/by/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Richard_Stallman_at_LibrePlanet_2019.jpg"><img width="256" alt="Richard Stallman at LibrePlanet 2019" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg/512px-Richard_Stallman_at_LibrePlanet_2019.jpg"></a>
-        <center>Richard Stallman</center>
+        <div class="program-name">
+            hello2.py
+        </div>
     </div>
 
     <p>
-        The first attempt at producing a deliberately free and open-source Unix clone was
-        <a href="https://www.gnu.org/gnu/initial-announcement.en.html#f1">announced</a> 
-        by Richard Stallman in 1983.
-        Stallman had been working at MIT's AI Laboratory for over a decade,
-        and had grown accustomed to its culture of sharing source code:
-    </p>
-
-    <blockquote style="width: 55%;">
-        "If you saw someone using an unfamiliar and interesting program, you
-        could always ask to see the source code, so that you could read it, change
-        it, or cannibalize parts of it to make a new
-        program."<sup><a href="https://www.gnu.org/gnu/thegnuproject.html">[15]</a></sup>
-    </blockquote>
-
-    <p>
-        Yet, proprietary software was becoming the norm, with students working
-        on projects intended for profit,
-        and companies going so far as to require nondisclosure agreements be 
-        signed to get an executable.<sup><a href="https://www.gnu.org/gnu/thegnuproject.html">[15]</a></sup><sup><a href="https://www.gnu.org/gnu/why-programs-should-be-shared.html">[16]</a></sup>
-        On September 27, 1983, Stallman made his announcement:
-        To produce a "complete UNIX-compatible software system," and to
-        "give it away free."<a href="https://www.gnu.org/gnu/initial-announcement.en.html#f1"><sup>[17]</sup></a>
-        He called the project <a href="https://gnu.org">GNU</a>, a recursive
-        acronym for
-        <em>GNU's Not UNIX.</em><sup><a href="https://www.gnu.org/gnu/gnu-history.html">[18]</a></sup>
-    </p>
-
-    <h3>Software Freedom</h3>
-   
-    <p>
-        At the time of announcement, Stallman had not yet quantified his
-        own intentions behind the word <em>free.</em>
-        Certainly, "a free copy" did not embody the
-        culture of code-sharing MIT was once home to.
-        More, he did not wish to put the code in the public domain because
-        modified versions of it it could become proprietary.<sup><a href="https://en.wikipedia.org/wiki/Copyleft#History">[19]</a></sup>
-        By 1985, Stallman had sorted these issues out:
-    </p>
-
-    <blockquote>
-        Everyone will be permitted to
-        modify and redistribute GNU, but no distributor will be allowed to
-        restrict its further redistribution. That is to say, proprietary
-        modifications will not be allowed. I want to make sure that all
-        versions of GNU remain free.<sup><a href="https://www.gnu.org/gnu/manifesto.html">[20]</a></sup>
-    </blockquote>
-
-    <p>
-        Thus, the notion of 
-        <em><a href="https://www.gnu.org/philosophy/free-sw.en.html">free software</a></em>
-        was born: 
-        Users can run, study, modify, copy and distribute GNU,
-        but <em>if</em> they distribute, then those freedoms must be preserved.
-        These stipulations are formalized in the GNU
-        <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">General Public License</a>, now in its third version.
+        Notice that the variable <code>msg</code> (and not the string <code>"msg"</code>)
+        is passed to the <code>print()</code> function.
     </p>
 
     <p>
-        To create an entire operating system is an enormous task, but
-        by 1990, the GNU Project had
-        found or written all major components except one, the kernel.<sup><a href="https://www.gnu.org/gnu/gnu-history.html">[18]</a></sup>
-        Today, the <a href="https://www.gnu.org/">GNU Project</a> is 
-        well-regarded for producing high-quality, well-documented free software;
-        they are as "official" as the open-source community gets.
-        They remain
-        <a href="https://www.gnu.org/keepingup.html">active and prominent</a>
-        among the free software community, with
-        monetary support from the 
-        <a href="https://www.fsf.org">Free Software Foundation</a>.<sup><a href="https://www.gnu.org/gnu/gnu-structure.html">[22]</a></sup>
-        Richard Stallman remains Chief GNUisance.<sup><a href="https://www.gnu.org/gnu/gnu-structure.html">[22]</a></sup>
+        Python automatically resolves variables to the objects they refer to.
+        A variable can only be bound to a single object at a time, and it is 
+        an error to use a variable that has not been declared.
+        In Python, all variables can be rebound at will,<sup><a href="https://web.archive.org/web/20100523132518id_/http://code.activestate.com/recipes/65207-constants-in-python/?in=user-97991">[1]</a></sup>
+        meaning that you can always redefine a variable to refer to something else.
     </p>
+
+    <p>
+        <h4>Exercises</h4>
+
+        <ol>
+            <li>
+                Try passing <code>"msg"</code> to <code>print()</code>.
+                What do you think the result would be?
+            </li>
+            <li>
+                Try printing <code>msg</code>, rebinding it, then printing it again.
+            </li>
+        </ol>
+    </p>
+
+
+    <h3>Getting Input</h3>
+
+    <div class="program">
+        <code>
+            name = input("What is your name? ")<br>
+            print("Hello", name, "!")
+        </code>
+
+        <div class="program-name">
+            salutations.py
+        </div>
+    </div>
 
     <h3> See Also: </h3>
     <ul>
-        <li><a href="https://en.wikipedia.org/wiki/Portal:Free_and_open-source_software">Portal: Free and open-source software</a> - Wikipedia</li>
+        <li><a href="https://www.pythontutorial.net/python-basics/python-variables/">Python Variables</a></li>
+        <li><a href="https://docs.python.org/3/library/functions.html">Built-in Functions - Python 3.10.4 documentation</a></li>
     </ul>
 </div>
 

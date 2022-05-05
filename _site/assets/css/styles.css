@@ -37,6 +37,10 @@ img { display: block; margin: 0px auto; max-width: 100%; padding-bottom: 5px; }
 /* Uniform background and shading*/
 .aside-left, .aside-right, table, #pro-tip { background-color: var(--shaded-background); outline: 2px solid black; }
 
+.program { background-color: var(--shaded-background); padding: 25px; border-style: groove; }
+
+.program-name { margin-right: 25px; float: right; font-style: italic; line-height: 3; }
+
 .aside-left, .aside-right { width: 20%; margin-top: 5px; margin-bottom: 20px; padding: 20px; padding-bottom: 0; font-size: 11pt; }
 
 .aside-right { float: right; margin-right: 0; margin-left: 20px; }

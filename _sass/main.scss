@@ -105,6 +105,20 @@ img{
 	outline: 2px solid black;
 }
 
+.program {
+    background-color: var(--shaded-background);
+    padding: 25px;
+    border-style: groove;
+}
+
+.program-name {
+    margin-right: 25px;
+    float: right;
+    font-style: italic;
+    line-height: 3;
+}
+
+
 
 
 .aside-left, .aside-right {

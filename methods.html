@@ -1,25 +1,14 @@
 ---
 layout: default
-title: Methods 
+title: Functions and Methods 
 last-updated: April, 2022
 ---
-
-<!--
-Magic Methods See Also:
-
-<h3>See Also</h3>
-<ul>
-    <li><a href="https://python-course.eu/oop/magic-methods.php">Magic Methods</a></li>
-</ul>
--->
 
 <div id="nav_bar_2" class="nav">
     <ul>
         <li><a href="#introduction"> Introduction </a></li>
-        <li><a href="#actors"> Actors </a></li>
-        <li><a href="#process-creation"> Process Creation and System Startup</a></li>
-        <li><a href="#exec">Executing a Different Program</a></li>
-        <li><a href="#file-descriptors"> File Descriptors </a></li>
+        <li><a href="#actions"> Actions </a></li>
+        <li><a href="#function-definition"> Function Definition</a></li>
         <li><a href="#termination">Process Termination</a></li>
         <li><a href="#attributes">Process Attributes</a></li>
         <li><a href="#what-is">Ya But What Is It?</a></li>
@@ -29,115 +18,90 @@ Magic Methods See Also:
 </div>
 
 <div id="introduction" class="content">
-    <h1>Methods</h1>
+    <h1>Functions and Methods</h1>
 
     <p>
+        Methods are the functions of Python.
+        They accept <code>self</code> as a parameter.
     </p>
 </div>
 
-<div class="content" id="actors">
-    <h2> Actors </h2>
+<div class="content" id="actions">
+    <h2> Actions </h2>
 
-    <div class="aside-right">
-        <h4>Note:</h4>
+    <p>
+        It is a chunk of code that accepts zero or more objects, and
+        carries out some action with them.
+    </p>
+
+    <div class=aside-right>
+        <h4>Aside:</h4>
         <p>
-            There is a close relationship between a <em>program</em> and a
-            <em>process</em>&mdash; Namely, a program is a file containing
-            the instructions that the process carries out.
+            Don't forget to enter a blank line after <code>print()</code> 
+            to terminate the function definition!
         </p>
     </div>
 
+    <code>
+        def hiya():
+            print("Hello there!")
+
+    </code>
+
     <p>
-        In Unix and its derivatives, processes are the actors of the system:
-        Left to its own devices, the kernel does nothing.
-        All Unix-like operating systems depend upon processes to direct 
-        the kernel, and through the kernel, processes direct the machine.
+        The newly defined function may be executed:
     </p>
 
+    <code>
+        hiya()
+        Hello there!
+    </code>
+
     <p>
-        The kernel is responsible for:
+        In all, it should look like:
     </p>
 
-    <ol>
-        <li>
-            Creating new processes
-        </li>
-        <li>
-            Allocating hardware resources to processes
-        </li>
-        <li>
-            Maintaining information about each
-        </li>
-    </ol>
+    <img src=assets/img/hiya.png>
 
     <p>
-        Each process has a narrowly defined role, which it is 
-        expected to do well. It might copy a file, 
-        display a window, provide audio services, or display the time.
-        Many small programs are used together to accomplish
-        a given task, thereby easing the maintenance and compounding 
-        the utility of each.
-    </p>
-
-    <p>
-        A given user may have more than one process acting on
-        their behalf at a time, and there can easily be hundreds
-        of processes on the system at a time.
-        Much like with files, the kernel maintains a large volume of
-        information about each process on the machine.
-        We'll cover the most relevant of this information in turn.
-    </p>
-
-    <h3 id="priveledges"> Interacting with Files: Process Permissions</h3>
-
-    <p>
-        Every process is associated with some user, and we say that 
-        it is executing with that user's <em>permissions.</em>
-        A process can freely manipulate files owned by 
-        its associated user, and 
-        files created by a process inherit its associated user.
-    </p>
-
-    <p>
-        Processes acting as user 
-        <em><a href="http://www.linfo.org/root.html">root</a></em> 
-        are special:
-        They can change any file on the system, without qualification.
-        That is, they by-default transcend the file 
-        ownership scheme, and we often use 
-        <em>superuser</em> to describe this user.
-    </p>
-      
-    <p>
-        In practice, root is the administrative user.
-        A typical use of superuser privileges is to 
-        format a physical device to prepare it for system-wide
-        use.
-        Superuser privileges are typically acquired
-        through <code>sudo</code>.
+        Good functions have a narrowly defined role,
+        are clearly written, and have a descriptive name.
+        Many small functions are much easier to read, and more useful,
+        than a few large ones.
     </p>
     
     <h3> See Also: </h3>
     <ul>
-        <li><a href="http://linfo.org/root.html">What is root?</a> -- definition by the Linux Information Project (LINFO)</li>
-        <li><a href="https://www.sudo.ws/man/1.8.3/sudo.man.html"><code>sudo(8)</code></a> - Execute a command as another user</li>
-        <li><a href="https://man7.org/linux/man-pages/man7/credentials.7.html"><code>credentials(7)</code></a> - Process identifiers</li>
     </ul>
 </div>
 
-<div class="content" id="process-creation">
-    <h2 style="margin-bottom: 0;"> Process Creation</h2>
-    <h4>and System Startup</h4>
+<div class="content" id="function-definition">
+    <h2> Function Definition</h2>
 
     <p>
-        At the end of its boot sequence, the kernel launches a single program,
-        <code>/sbin/init</code>,<sup><a href="https://en.wikipedia.org/wiki/Init">[1]</a></sup>
-        and in so doing creates the system's first process.
-        While <code>init</code> schemes
-        <a href="https://arxiv.org/abs/0706.2748">have evolved</a>
-        over the years, its purpose has not changed:
-        It is a process with superuser permissions that acts as a
-        manager of the system and trustee among processes.
+        A new function is introduced to the current namespace with the
+        <code>def</code> statement.
+    </p>
+
+    <p>
+        Said to be <em>untyped.</em>
+    </p>
+</div>
+
+<div class="content" id="methods">
+    <h2>Methods</h2>
+
+    <p>
+        Functions may be permanently associated with an object;
+        such functions are called <em>methods,</em> 
+    </p>
+</div>
+
+<div class="content" id="magic-methods">
+    <h2 style="margin-bottom: 0;"> Magic Methods</h2>
+    <h4>The Magic of Python</h4>
+
+    <p>
     </p>
 
     <div class="aside-left">
@@ -207,9 +171,9 @@ Magic Methods See Also:
         independently.
     </p>
 
-    <h3>See Also:</h3>
+    <h3>See Also</h3>
     <ul>
-        <li><code><a href="https://www.man7.org/linux/man-pages/man2/fork.2.html">fork(2)</code></a> - Create a child process</li>
+        <li><a href="https://python-course.eu/oop/magic-methods.php">Magic Methods</a></li>
     </ul>
 </div>
 
@@ -470,105 +434,8 @@ Magic Methods See Also:
     <h2>Ya But What Is It?</h2>
 
     <p>
-        The short answer is, a section of memory distinct from the
-        rest of the machine, and some restricted access to the CPU, both
-        given by the kernel.
-        The long answer is the primary abstraction presented to programmers,
-        and the environment within which all programs execute.
-        The process is one of the most important ideas
-        of computer science, and we can only scratch the surface of
-        what it is here.
+        Functions in Python are objects!
     </p>
-    
-    <h3> Memory </h3>
-
-    <p>
-        Modern operating systems 
-        provide each process with its own memory in the
-        form of a distinct <em>address space.</em>
-        On all modern computers, memory is byte-addressable, so that each
-        address refers to exactly one byte.
-        Addresses themselves are simply numbers, and 
-        an address space is a collection of memory addresses.
-    </p>
-
-    <div class="img-right" style="background: #f1f1f1;">
-        <a style="outline: solid black 2px; " title="Traced by User:Stannered, original by en:User:Dysprosia / BSD (http://opensource.org/licenses/bsd-license.php)" href="https://commons.wikimedia.org/wiki/File:Virtual_address_space_and_physical_address_space_relationship.svg"><img width="256" alt="Virtual address space and physical address space relationship" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Virtual_address_space_and_physical_address_space_relationship.svg/512px-Virtual_address_space_and_physical_address_space_relationship.svg.png"></a>
-    </div>
-
-    <p>
-        For each machine, there exists a unique physical address space.
-        An address in this space refers to an actual byte of memory 
-        (RAM); 
-        only the kernel has access to this address space.
-        The kernel, working in conjunction with hardware, 
-        imposes a layer of indirection between each process's
-        memory references and the physical address space.
-        This layer is known as <em>virtual memory,</em>
-        and consists of a collection of virtual addresses 
-        mapped to physical ones.
-    </p>
-
-    <p>
-        Virtual memory requires support from both the kernel and CPU:
-        The kernel to assign address translations 
-        (mappings from virtual addresses to physical addresses), 
-        and the CPU to carry them out.
-        Each time a process references an address, the
-        CPU translates it to a physical address, so that for all
-        intents and purposes, virtual addresses behave exactly
-        as physical ones.
-    </p>
-
-    <p>
-        Since each process operates within its own virtual address space, 
-        each process is presented with the illusion
-        that it has the entire physical address space to itself.
-        By excluding physical addresses from translation,
-        the rest of the machine is implicitly protected:
-        Other sections of memory (especially, other process' memory) 
-        simply do not exist within the context of the
-        currently running process, and therefore cannot be read from, 
-        nor written to.
-    </p>
-
-    <h3> CPU </h3>
-
-    <p>
-        Modern CPU's support two distinct modes of operation.
-        <em>Kernel mode,</em> sometimes called "supervisor mode," is
-        the unrestricted mode.
-        Here, all CPU instructions are available, and address translation
-        is not performed, so that code running in this mode has
-        unmediated access to the machine.
-    </p>
-
-    <p>
-        <em>User mode</em> is a proper subset of kernel mode: 
-        A program running
-        in user mode does not have access to all instructions, and 
-        its memory references are redirected through the virtual
-        memory scheme mentioned above. 
-        Executing programs in this mode
-        is known as <em>limited direct execution.</em><sup><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-mechanisms.pdf">[3]</a></sup>
-        It is <em>limited</em> in the sense that each process has access to
-        only a restricted subset of the CPU's instructions, and
-        it is <em>direct</em> in the sense that the program runs
-        directly on hardware.
-    </p>
-
-    <p>
-        Virtual memory and limited direct execution are intended to 
-        make safe and efficient use of available hardware.
-        Together, they form a sandboxed environment within which a program 
-        may safely be executed.
-    </p>
-
-    <h3>See Also:</h3>
-    <ul>
-        <li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/">Operating Systems: Three Easy Pieces</a> by Remzi H. Arpaci-Dusseau and Andrea C. Arpaci-Dusseau </li>
-    </ul>
-
 </div>
 
 <div class="content" id="dr-fraser">
