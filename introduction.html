@@ -7,6 +7,11 @@ last-updated: April, 2022
 <!--
 
     <p>
+        Formally, <code>==</code> is expected to satisfy the conditions of
+        an <a href="https://en.wikipedia.org/wiki/Equivalence_relation">equivalence relation</a>.)
+    </p>
+
+    <p>
         The program calls the <code>print()</code> function, passing it
         a single argument, the string <code>"Hello World!"</code>.
         Function calls are denoted by the use of trailing parenthesis,
@@ -30,6 +35,9 @@ last-updated: April, 2022
         <li><a href="#getting-started">Getting Started</a></li>
         <li><a href="#variables">Variables</a></li>
         <li><a href="#numbers">Numbers</a></li>
+        <li><a href="#conditionals">Conditionals</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#game">Our First Game</a></li>
         <li><a href="#history">History</a></li>
         <li><a href="#kirk-byers">Kirk Byers</a></li>
         <li><a href="#references"> References </a></li>
@@ -95,11 +103,14 @@ last-updated: April, 2022
 
     <p>
         In a Linux environment, Python 3 should be already be installed.
-        You can verify with
+    </p>
+
+    <p>
+        On any platform, you can confirm your Python installation with,
     </p>
 
     <code>
-        $ python3 --version
+        $ python --version
     </code>
 
 
@@ -233,6 +244,13 @@ print("Hello", name)
     </p>
 
     <p>
+        The typical structure of a program is to obtain some input
+        from the user, do some work on it, then return some results. 
+        Input can be raw, as above, or it could be from a file.
+        Likewise, output can be merely printed, or it can be sent to a file.
+    </p>
+
+    <p>
         <h4>Exercises</h4>
 
         <ol>
@@ -247,6 +265,7 @@ print("Hello", name)
         </ol>
     </p>
 
+
     <h3> See Also: </h3>
     <ul>
         <li><a href="https://www.pythontutorial.net/python-basics/python-variables/">Python Variables</a></li>
@@ -256,6 +275,7 @@ print("Hello", name)
 
 <div class="content" id="numbers">
     <h2>Numbers</h2>
+
     <p>
         Python supports many data types natively, including 
         lists, dictionaries and sets. It also supports
@@ -274,12 +294,14 @@ print("Hello", name)
     <p>
         On numbers, the usual <code>+</code>, <code>-</code>, <code>*</code>,
         and <code>/</code> are supported, and behave as you would expect.
+        More, the double-star operator, <code>**</code>, is used
+        to denote power, so that <code>2**8</code> represents 2<sup>8</sup>.
         For example,
     </p>
 
     <div class="program">
         <code>
-num = 2 + 2.6
+num = 2**2 + 2.5
 print(num)
         </code>
         <div class="program-name">
@@ -288,14 +310,9 @@ print(num)
     </div>
 
     <p>
-        prints <code>4.6</code>,
-        where <code>2</code> is an <code>int</code>, 
+        prints <code>6.5</code>,
+        where <code>2</code> and <code>2**2</code> are <code>int</code>, 
         and both <code>2.6</code> and <code>num</code> are <code>float</code>.
-    </p>
-
-    </p>
-        In addition, <code>**</code> is used
-        to denote power, so that <code>2**8</code> represents 2<sup>8</sup>.
     </p>
 
     <p>
@@ -314,36 +331,32 @@ print(num)
             </li>
         </ol>
     </p>
-
 </div>
 
-<div class="content" id="truth-valued-expressions">
-    <h2>Truth-Valued Expressions</h2>
-
-    <p>
-        The typical structure of a program is to obtain some input
-        from the user, do some work on it, then return some results. 
-        Input can be raw, as above, or it could be from a file.
-        Likewise, output can be merely printed, or it can be sent to a file.
-    </p>
-
-
+<div class="content" id="conditionals">
+    <h2>Conditionals</h2>
+   
     <p>
         Fundamental to programming, and common to every programming language,
         is the notion of an expression which resolves to either <em>true</em>
         or <em>false</em>.
-        For example, <code>4 &lt; 3</code> resolves to "false", while
+        For example, <code>4 == 3</code> resolves to "false", while
         <code>4 &gt; 3</code> resolves to "true".
     </p>
-</div>
 
-<div class="content" id="conditional-branches">
-    <h2>Conditional Branches</h2>
-    
     <p>
-        The power of programming stems from the ability to handle different
-        cases differently, and is rooted in the conditional branch,
-        otherwise known as the <code>if</code> statement.
+        (Since <code>=</code> is used to bind values to a variables, 
+        Python [and most other languages] use <code>==</code> to 
+        test whether an object is equivalent to another. 
+        Thus, <code>4 == 3</code> is read, "Four is equal to three.")
+    </p>
+ 
+    <p>
+        The power of programming stems from the ability to test conditions
+        and to act differently in different circumstances.
+        This is called <em>branching</em>, and
+        is rooted in the <code>if</code> statement.<sup><a href="https://www.cs.utah.edu/~germain/PPS/Topics/branching.html">[3]</a></sup>
+        In Python, <code>if</code> statements look like this:
     </p>
 
     <div class="program">
@@ -359,6 +372,15 @@ else:
         </div>
     </div>
 
+    <p>
+        The <code>else</code> branch is optional, but
+        indentation <em>is</em> significant to Python: 
+        Each level of indentation denotes a distinct "block" of code,
+        to be run (sequentially) as a whole.
+        Blocks can be of unlimited length, and may themselves contain
+        <code>if</code> statements (and blocks of code...).
+    </p>
+</div>
 
     <p>
         <h4>Exercises</h4>
@@ -377,6 +399,7 @@ else:
 
     <h3>See Also:</h3>
     <ul>
+        <li><a href="https://www.cs.utah.edu/~germain/PPS/Topics/conditionals.html">Conditionals</a></li>
     </ul>
 </div>
 
@@ -389,7 +412,7 @@ else:
         These entities are contained in so-called <em>modules</em>;
         the most popular module is <a href="https://docs.python.org/3/library/random.html"><code>random</code></a>, often used in
         games.
-        Another popular module is <a href="https://numpy.org/"><code>numpy</code></a>, which offers 
+        Another popular module is <a href="https://numpy.org/"><code>NumPy</code></a>, which offers 
         extensive facilities for scientific computing.
     </p>
 
