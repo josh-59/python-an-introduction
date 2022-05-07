@@ -7,10 +7,4 @@
 - name: Control Flow
   link: /control-flow.html
 - name: Methods
-  link: /processes.html
-- name: Terminals and Shells
-  link: /terminals-and-shells.html
-- name: Packages 
-  link: /packages.html
-- name: How Open-Source Works
-  link: /how-open-source-works.html
+  link: /methods.html
