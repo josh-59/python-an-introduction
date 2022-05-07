@@ -1,10 +1,12 @@
-- name: "<b style=\"line-height: 1;\">Python</b>"
+- name: "<b style=\"line-height: 1;\">Python: An Introduction</b>"
   link: /
 - name: Introduction 
   link: /introduction.html
-- name: Files
-  link: /files.html
-- name: Processes
+- name: Objects
+  link: /objects.html
+- name: Control Flow
+  link: /control-flow.html
+- name: Methods
   link: /processes.html
 - name: Terminals and Shells
   link: /terminals-and-shells.html

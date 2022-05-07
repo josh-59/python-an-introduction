@@ -13,8 +13,6 @@ h3 { font-size: 15pt; }
 /* Centered & Italic Header */
 h4 { font-size: 17pt; font-weight: normal; font-style: italic; margin: 5px; margin-top: 0; }
 
-ol { margin-left: 10%; }
-
 /* Navigation */
 .nav ul { list-style-type: none; background-color: var(--shaded-background); position: fixed; margin: 0; padding: 0; height: 100%; width: inherit; /* Inherit from containing element */ overflow: none; /* No scrollbar */ }
 
@@ -37,9 +35,9 @@ img { display: block; margin: 0px auto; max-width: 100%; padding-bottom: 5px; }
 /* Uniform background and shading*/
 .aside-left, .aside-right, table, #pro-tip { background-color: var(--shaded-background); outline: 2px solid black; }
 
-.program { background-color: var(--shaded-background); padding: 25px; border-style: groove; }
+.program { background-color: var(--shaded-background); padding-left: 25px; border-style: groove; white-space: pre; }
 
-.program-name { margin-right: 25px; float: right; font-style: italic; line-height: 3; }
+.program-name { margin-right: 25px; float: right; font-style: italic; line-height: 1; }
 
 .aside-left, .aside-right { width: 20%; margin-top: 5px; margin-bottom: 20px; padding: 20px; padding-bottom: 0; font-size: 11pt; }
 

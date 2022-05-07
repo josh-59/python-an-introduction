@@ -38,10 +38,6 @@ h4 {
     margin-top: 0;
 }
 
-ol {
-    margin-left: 10%;
-}
-
 /* Navigation */
 .nav ul {
     list-style-type: none;
@@ -107,19 +103,17 @@ img{
 
 .program {
     background-color: var(--shaded-background);
-    padding: 25px;
+    padding-left: 25px;
     border-style: groove;
+    white-space: pre;
 }
 
 .program-name {
     margin-right: 25px;
     float: right;
     font-style: italic;
-    line-height: 3;
+    line-height: 1;
 }
-
-
-
 
 .aside-left, .aside-right {
 	width: 20%;

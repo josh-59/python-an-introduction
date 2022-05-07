@@ -1,35 +1,26 @@
-Learning Linux:
+Python: An Introduction:
 ===============
 
-A friendly and rigorous introduction to GNU/Linux.
+A high-quality introduction to Python 3.
 
-Available at [https://josh-59.github.io/Learning-Linux/](https://josh-59.github.io/Learning-Linux/).
+Available at [https://josh-59.github.io/python-an-introduction/](https://josh-59.github.io/python-an-introduction/).
 
 ## Outline
 
 Landing:
-- [X] Introduction 
-- [X] Directory
+- [ ] Introduction 
+- [ ] Directory
 
-Intro:
-- [X] History: Time Sharing
+Introduction:
 - [X] Unix
 - [X] The UNIX Architecture
 - [X] GNU's Not Unix
 - [X] The Linux Kernel
 - [X] Linux Distributions: Early History
-- [X] Linux Mint
+- [ ] History
+- [ ] Python **for** Loops
 
-Files and Filesystems:
-- [x] Files
-- [x] Regular Files
-- [x] Device Files
-- [x] Pseudo Files
-- [x] Basic File Operations
-- [x] Filesystem Heirarchy
-- [x] Mounting a Filesystem
-- [X] inodes and Filenames
-- [x] The Original Unix Filesystem
+Objects:
 
 Processes:
 - [x] Actors
