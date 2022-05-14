@@ -34,11 +34,10 @@ last-updated: April, 2022
         <li><a href="#introduction"> Introduction </a></li>
         <li><a href="#getting-started">Getting Started</a></li>
         <li><a href="#variables">Variables</a></li>
-        <li><a href="#numbers">Numbers</a></li>
+        <li><a href="#numbers">Numbers of Various Sorts</a></li>
         <li><a href="#conditionals">Conditionals</a></li>
+        <li><a href="#while-loops">While Loops</a></li>
         <li><a href="#modules">Modules</a></li>
-        <li><a href="#game">Our First Game</a></li>
-        <li><a href="#history">History</a></li>
         <li><a href="#kirk-byers">Kirk Byers</a></li>
         <li><a href="#references"> References </a></li>
     </ul>
@@ -106,11 +105,12 @@ last-updated: April, 2022
     </p>
 
     <p>
-        On any platform, you can confirm your Python installation with,
+        On any platform, you can confirm your Python installation 
+        by opening a terminal (<a href="https://docs.microsoft.com/en-us/learn/modules/introduction-to-powershell/">PowerShell</a> in Windows) with,
     </p>
 
     <code>
-        $ python --version
+        $ python3 --version
     </code>
 
 
@@ -146,7 +146,7 @@ print("Hello World!")
         <li>Get <em>hello.py</em> running on your machine.</li>
         <li>Experiment with leaving parts of the program out.  What kind of errors do you get?</li>
 
-        <li>What does <code>print()</code> do without any arguments? <em>Hint:</em> It doesn't do nothing!</li>
+        <li>What does <code>print()</code> do without any arguments? <em>Hint:</em> It does something!</li>
     </ol>
 
     <h3>See Also:</h3>
@@ -162,8 +162,8 @@ print("Hello World!")
 
     <p>
         A <em>variable</em> is a name for an object.  
-        To declare a variable is to introduce it into the source file; 
-        to bind a variable is to set it to refer to some object.
+        To <em>declare</em> a variable is to introduce it into the source file; 
+        to <em>bind</em> a variable is to set it to refer to some object.
         In Python, variables are declared and bound in a single step, 
         with the <code>=</code> operator.
         To create a variable named <code>msg</code> referring to the string 
@@ -223,8 +223,9 @@ print(msg)
         retrieve input from the user.  
         The function is <code>input()</code>. It takes at most one
         argument, a message to be printed, and it returns a string.
-        So, we can bind the return value of <code>input()</code> to a variable,
-        then use it later:
+        We can bind the returned value of <code>input()</code> to a variable,
+        then use it later.
+        This is how we "save" input to use it later:
     </p>
 
     <div class="program">
@@ -238,9 +239,10 @@ print("Hello", name)
     </div>
 
     <p>
-        When more than one argument is passed to a function, each
-        argument is separated by a comma, <code>,</code>.
-        Note that the <code>print()</code> function is passed two arguments.
+        Note that the <code>print()</code> function is passed two arguments,
+        the string <code>"Hello"</code> and the variable <code>name</code>.
+        When more than one argument is passed to a function, they 
+        are separated by a comma, <code>,</code>.
     </p>
 
     <p>
@@ -274,12 +276,12 @@ print("Hello", name)
 </div>
 
 <div class="content" id="numbers">
-    <h2>Numbers</h2>
+    <h2>Numbers of Various Sorts</h2>
 
     <p>
         Python supports many data types natively, including 
-        lists, dictionaries and sets. It also supports
-        three kinds of numbers:
+        lists, dictionaries and sets. It supports
+        three kinds of numbers natively:
         Integers (<code>int</code>), 
         floating point numbers (<code>float</code>)
         and complex numbers (<code>complex</code>).<sup><a href="https://docs.python.org/3/library/stdtypes.html#typesnumeric">[2]</a></sup>
@@ -293,7 +295,8 @@ print("Hello", name)
 
     <p>
         On numbers, the usual <code>+</code>, <code>-</code>, <code>*</code>,
-        and <code>/</code> are supported, and behave as you would expect.
+        and <code>/</code> operators are supported, and behave as 
+        you would expect.
         More, the double-star operator, <code>**</code>, is used
         to denote power, so that <code>2**8</code> represents 2<sup>8</sup>.
         For example,
@@ -311,8 +314,8 @@ print(num)
 
     <p>
         prints <code>6.5</code>,
-        where <code>2</code> and <code>2**2</code> are <code>int</code>, 
-        and both <code>2.6</code> and <code>num</code> are <code>float</code>.
+        where <code>2**2</code> is an <code>int</code>, 
+        and both <code>2.5</code> and <code>num</code> are <code>float</code>.
     </p>
 
     <p>
@@ -322,15 +325,21 @@ print(num)
     </p>
 
     <p>
-        <h4>Exercises</h4>
-
-        <ol>
-            <li>
-                Try evaluating <code>13/3</code>.
-                What do you think the result will be?
-            </li>
-        </ol>
+        Python can also be used interactively, making for a handy calculator.
+        From your shell, simply enter,
     </p>
+
+    <div class="code">
+        $ python3
+    </div>
+
+    <p>
+        to be presented with an interactive Python session. This can be
+        useful for weeding out the details of the language, in addition
+        to doing basic math.
+        (For more serious interactive use, <a href="https://ipython.org/">IPython</a> is recommended)
+    </p>
+
 </div>
 
 <div class="content" id="conditionals">
@@ -340,17 +349,22 @@ print(num)
         Fundamental to programming, and common to every programming language,
         is the notion of an expression which resolves to either <em>true</em>
         or <em>false</em>.
-        For example, <code>4 == 3</code> resolves to "false", while
-        <code>4 &gt; 3</code> resolves to "true".
-    </p>
-
-    <p>
+        For example, <code>4 &gt; 3</code> resolves to <code>True</code>.
+        while <code>4 == 3</code> resolves to <code>False</code>.
         (Since <code>=</code> is used to bind values to a variables, 
-        Python [and most other languages] use <code>==</code> to 
-        test whether an object is equivalent to another. 
+        Python [and most other programming languages] use <code>==</code> to 
+        test whether one object is equivalent to another. 
         Thus, <code>4 == 3</code> is read, "Four is equal to three.")
     </p>
  
+    <p>
+        Python uses the <code>bool</code> type (short for <a href="https://en.wikipedia.org/wiki/Boolean_data_type">Boolean</a>) to represent the
+        the values <code>True</code> and <code>False</code>.
+        Note that these values are capitalized, and are a kind of integer,
+        with <code>False</code>  having integer value <code>0</code> and 
+        <code>True</code> having integer value <code>1</code>.
+    </p>
+
     <p>
         The power of programming stems from the ability to test conditions
         and to act differently in different circumstances.
@@ -375,17 +389,20 @@ else:
     <p>
         The <code>else</code> branch is optional, but
         indentation <em>is</em> significant to Python: 
-        Each level of indentation denotes a distinct "block" of code,
-        to be run (sequentially) as a whole.
+        Each level of indentation denotes a distinct "block" of code.
+        Blocks of code are run (sequentially) as a whole.
         Blocks can be of unlimited length, and may themselves contain
         <code>if</code> statements (and blocks of code...).
     </p>
-</div>
 
     <p>
         <h4>Exercises</h4>
 
         <ol>
+            <li>
+                The first line of <em>big-little.py</em> does three
+                things. What are they?  Explain them in detail.
+            </li>
             <li>
                 Try printing <code>4 &lt; 3</code>. 
                 What do you think the result would be?
@@ -399,22 +416,73 @@ else:
 
     <h3>See Also:</h3>
     <ul>
+        <li><a href="https://docs.python.org/3/library/stdtypes.html">Built-in Types</a> (Note especially the <a href="https://docs.python.org/3/library/stdtypes.html?#comparisons">comparisons</a> section)</li>
         <li><a href="https://www.cs.utah.edu/~germain/PPS/Topics/conditionals.html">Conditionals</a></li>
+        <li><a href="https://realpython.com/python-and-operator/">Using the "and" Boolean Operator in Python - Real Python</a></li>
     </ul>
 </div>
 
+<div class="content" id="while-loops">
+    <h2>While Loops</h2>
 
-<div class="content" id="modules">
     <p>
-        Alongside the built-in types and functions, additional 
-        functionality can be imported using the 
-        <code>import</code> statement.
-        These entities are contained in so-called <em>modules</em>;
-        the most popular module is <a href="https://docs.python.org/3/library/random.html"><code>random</code></a>, often used in
-        games.
-        Another popular module is <a href="https://numpy.org/"><code>NumPy</code></a>, which offers 
-        extensive facilities for scientific computing.
+        Loops allow a block of code to be repeated.
+        The block of code to be repeated is referred to as the 
+        <em>body</em> of the loop.
+        Python supports two kinds of loop statements: <code>for</code>
+        and <code>while</code>.
+        In a <code>while</code> loop, the block of code is repeated until 
+        either the condition evaluates
+        to <code>False</code>, or a <code>break</code> statement is reached.
     </p>
+
+    <div class="program">
+        <code>
+count = 0
+while count &lt; 10:
+    print("Hello there!")
+    count = count + 1
+        </code>
+        <div class="program-name">
+            big-little.py
+        </div>
+    </div>
+
+    <p>
+        Although the line "<code>count = count + 1</code>" is 
+        a mathematical contradiction,
+        in Python, as in most programming languages, the
+        <code>=</code> operator is used to <em>bind</em> a value to a
+        variable, and so is valid code: It simply increments the value of
+        <code>count</code> by one.
+    </p>
+
+    <p>
+        It's worth noting here that the body of the while loop 
+        executes precisely ten times.  
+        On the first run, <code>count</code> has a value of zero;
+        on the last, it has a value of nine.  
+        When <code>count</code> is incremented to ten, <code>count < 10</code>
+        evaluates to <code>False</code>, and the while loop exits.
+        This, as opposed to 
+    </p>
+
+    <div class="program">
+        <code>
+count = 1
+while count &lt;= 10:
+    print("Hello there!")
+    count = count + 1
+        </code>
+        <div class="program-name">
+            big-little2.py
+        </div>
+    </div>
+
+    <p>
+        is standard programming practice.
+    </p>
+
 
     <h3>See Also:</h3>
     <ul>
@@ -422,9 +490,19 @@ else:
     </ul>
 </div>
 
-<div id="game" class="content">
-    <h2 style="margin-bottom: 0;">Our First Game:</h2>
-    <h4> Too High, Too Low</h4>
+<div id="modules" class="content">
+    <h2>Modules</h2>
+
+    <p>
+        Alongside the built-in types and functions, additional 
+        functions and types can be imported using the 
+        <code>import</code> statement.
+        These entities are contained in so-called <em>modules;</em>
+        the most popular module is <a href="https://docs.python.org/3/library/random.html"><code>random</code></a>, often used in games.
+        Another popular module is 
+        <a href="https://numpy.org/"><code>NumPy</code></a>, which offers 
+        extensive facilities for scientific computing.
+    </p>
 
     <div class="program">
         <code>
@@ -434,21 +512,35 @@ num = random.randint(0,100)
 
 print("I've got my number!")
 
-while True:
-    usr_input = int(input("What is your guess? "))
-    if usr_input == num:
-        print("Correct!")
-        break
-    elif usr_input &lt; num:
+usr_input = int(input("What is your guess? "))
+
+while usr_input != num:
+    if usr_input &lt; num:
         print("Too low!")
     else:
         print("Too high!")
+    usr_input = int(input("Guess again! "))
+
+print("Correct!")
         </code>
         <div class="program-name">
             too-high-too-low.py
         </div>
     </div>
 
+    <p>
+        In this program, we first <code>import</code> the <code>random</code>
+        module, then use it to generate a random number between zero and 100
+        (inclusive).
+        Next, we get an initial guess from the user.
+        If that guess is not equal (<code>!=</code>) to the number generated,
+        then the block of code containing
+        the <code>if/else</code> statement is executed.
+        After reporting to the user that the guess is either 
+        too high or too low, 
+        the user is queried for a new guess, and the new result is
+        compared to the randomly generated number once again.
+    </p>
 </div>
 
 <div id="history" class="content">
